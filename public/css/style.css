@@ -113,7 +113,7 @@ header.sticky_header {border:none;}
 .eg-pr-box {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); padding-bottom:50px; gap:15px;}
 .eg-pr-item img {width:40px; transition:0.5s ease;}
 .eg-pr-item:hover img {transform:rotateY(360deg);}
-.eg-pr-item {text-align:center; background:#fff; box-shadow:0 0 15px #d7d7d7; display:inline-flex; align-items:center; flex-direction:column; justify-content:center; border-radius:20px; margin:auto; position:relative; padding:25px; overflow:hidden;}
+.eg-pr-item {text-align:center; background:#fff; box-shadow:0 0 15px #d7d7d7; align-items:center; flex-direction:column; justify-content:center; border-radius:20px; margin:auto; position:relative; padding:25px; overflow-y:auto; height:232px; scrollbar-width:none;}
 .eg-pr-item:before {position:absolute; content:""; width:150px; height:250px; background:#f1f1f1; bottom:0; right:0; transform:rotate(46deg) translate(62%, 14%); transition:0.5s ease;}
 .eg-pr-item:hover:before {background:rgb(211 0 0 / 20%);}
 .eg-pr-item h4 {margin:0; text-transform:capitalize; color:#00215e; font-size:19px; padding-left:16px;}
