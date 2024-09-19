@@ -872,6 +872,7 @@ ul#progressbar li:last-child .pt-pr-img:after {display:none;}
 #admin_tog.on .two {opacity:0;}
 #admin_tog.on .three {transform:rotate(-45deg) translate(4px, -5px);}
 .emil_title label {font-size:21px;}
+.eg-run-icon .fas { z-index: 999; font-size: 25px; }
 
 
 .p-autocomplete-items-wrapper li{
@@ -1073,6 +1074,5 @@ h6 {font-size:16px;}
 .ed-pol-flex li, .contact-one__contact-list {flex-wrap:wrap;}
 .button-publish {background-color: green; color: white; padding: 5px 10px; border: none; border-radius: 3px;}
 .button-not-publish { background-color: red; color: white; padding: 5px 10px; border: none; border-radius: 3px; }
-.eg-run-icon .fas { z-index: 999; font-size: 25px; }
 
 }
