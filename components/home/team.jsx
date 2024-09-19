@@ -8,13 +8,13 @@ const Team = ({ teamData }) => {
           {teamData?.map((team, i) => (
             <div key={i} className="col-lg-3 col-6 col-md-3">
               <div className="team-box wow fadeInRight" data-wow-delay={`${(i + 1) * 0.2}s`}>
+                <img src={team.candidate_image} alt />
                 <div className="team-cont">
                   <h4>{team.party_owner_name}</h4>
                   <a href="#">
                     <img src={team.political_party_logo} alt />
                   </a>
                 </div>
-                <img src={team.candidate_image} alt />
               </div>
             </div>
           ))}
