@@ -20,7 +20,7 @@ const OfficeStructure = ({ offStructures, OffFeatures }) => {
               <div className="eg-run-bx">
                 <div className="eg-run-cont">
                   <div className="eg-run-icon">
-                    <i className={OffFeature.icon}></i>
+                    <i class={OffFeature.icon}></i>
                   </div>
                   <h4>{OffFeature.title}</h4>
                 </div>
