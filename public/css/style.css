@@ -169,7 +169,7 @@ section.eg-run-sec {background:#ebebeb;}
 .team-cont a {width:65px; height:65px; display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:50%; overflow:hidden; margin-top:10px; padding:10px;}
 .team-cont a img {width:50px;}
 .team-cont { background: #1b7339;}
-.team-cont h4 { margin: 0; font-size: 21px; font-weight: 800; color: #fff; padding: 10px 15px; }
+.team-cont h4 { margin: 0; font-size: 17px; font-weight: 800; color: #fff; padding: 10px 15px; }
 .team-cont a {color:#000; text-decoration:underline; font-weight:600;}
 .eg-quick-over-cont {text-align:center; max-width:900px; margin:auto;}
 .eg-quick-over-cont h1 {font-size:30px;}
