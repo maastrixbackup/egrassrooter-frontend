@@ -11,7 +11,7 @@ const About_Category = ({aboutservices}) => {
               {aboutservices?.map((aboutservice, i) => (
               <div key={i} className="eg-pr-item wow fadeInUpBig" data-wow-delay={`${(i + 1) * 0.2}s`}>
                 <div className="eg-pr-title">
-                  <img src={aboutservice.icon} alt />
+                  <i class={aboutservice.icon}></i>
                   <h4>{aboutservice.title}</h4>
                 </div>
                 <p>
