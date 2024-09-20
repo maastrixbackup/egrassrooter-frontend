@@ -8,13 +8,15 @@ import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useStore from "../../../store/store";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Index = ({ setBannerTitle }) => {
-  const { setToken,setUser } = useStore();
+  const { setToken, setUser } = useStore();
   const { setType, setMessage } = useSnackBarContext();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoadingState] = useState(false);
-  const router = useRouter();
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const router = useRouter(); // Single useRouter instance
   const { status, message } = router.query;
 
   const {
@@ -42,10 +44,20 @@ const Index = ({ setBannerTitle }) => {
     setShowPassword(!showPassword);
   };
 
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaToken(value);
+    console.log("Captcha value:", value);
+  };
+
   const onSubmit = async (data) => {
+    if (!recaptchaToken) {
+      toast.error("Please complete the reCAPTCHA");
+      return;
+    }
+
     try {
       setLoadingState(true);
-      const res = await PostData("login", data);
+      const res = await PostData("login", { ...data, recaptcha_token: recaptchaToken });
       if (!res.success) {
         toast.error(res.message || "Login failed");
       } else {
@@ -68,7 +80,6 @@ const Index = ({ setBannerTitle }) => {
       }
     } catch (error) {
       console.log(error);
-      
       toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       setLoadingState(false);
@@ -153,7 +164,10 @@ const Index = ({ setBannerTitle }) => {
                           </div>
                           <div className="col-lg-12">
                             <div className="captcha-img">
-                              <img src="/images/captcha-1.gif" alt="Captcha" />
+                              <ReCAPTCHA
+                                sitekey="6Lc4yg0iAAAAADzNkFQQOL7hIE7iVBIrv9hhjvis" // Replace with your site key
+                                onChange={handleRecaptchaChange}
+                              />
                             </div>
                           </div>
                           <div className="col-lg-12">

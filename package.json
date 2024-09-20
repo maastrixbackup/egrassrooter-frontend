@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.1.0",
+    "@ckeditor/ckeditor5-react": "^9.2.0",
     "@radix-ui/react-tabs": "^1.1.0",
     "axios": "^1.7.4",
     "jquery": "^3.7.1",
@@ -17,6 +19,7 @@
     "primereact": "^10.8.2",
     "react": "^18",
     "react-dom": "^18",
+    "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.52.1",
     "react-owl-carousel": "^2.3.3",
     "react-pro-sidebar": "^1.1.0",
