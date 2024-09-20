@@ -35,7 +35,7 @@ export default function Home({data}) {
         <Team teamData={data.latest_parties}/>
         <OfficeStructure offStructures={data.home_contents} OffFeatures={data.features} />
         <Testimonial Testimonials={data.testimonials}/>
-        <Overview overview={data.home_contents}/>
+        <Overview overview={data.software_data} softwareheading={data.home_contents}/>
         <Blog />
         <Newsletter />
         <HomeModal/>

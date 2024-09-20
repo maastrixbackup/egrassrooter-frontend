@@ -106,4 +106,14 @@ a {
   }
 }
 
+/* Custom CKEditor Styles */
+.ck-editor__editable {
+  min-height: 300px;
+  max-width: 100%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  /* You can add more custom styles here */
+}
+
+
 
