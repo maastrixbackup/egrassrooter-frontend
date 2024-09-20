@@ -11,8 +11,8 @@ const Testimonial = ({ Testimonials }) => {
     margin: 30,
     responsiveClass: true,
     nav: false,
-    dots: false,
-    autoplay: false,
+    dots: true,
+    autoplay: true,
 
     smartSpeed: 1000,
     responsive: {

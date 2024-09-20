@@ -12,7 +12,7 @@ const Banner = ({ banners }) => {
     responsiveClass: true,
     nav: false,
     dots: true,
-    autoplay: false,
+    autoplay: true,
 
     smartSpeed: 1000,
     responsive: {
