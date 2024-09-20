@@ -5,14 +5,11 @@ const Blog = () => {
     <section>
       <div className="container">
         <div className="row">
-<<<<<<< HEAD
-=======
           <div className="col-lg-12 mb-4">
             <div className="eg-run-ofc">
               <h4>Recent News</h4>
             </div>
           </div>
->>>>>>> devsinu
           <div className="col-lg-6 col-md-12">
             <div className="blog-big">
               <div className="blog-date">

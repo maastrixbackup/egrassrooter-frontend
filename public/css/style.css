@@ -113,18 +113,11 @@ header.sticky_header {border:none;}
 .eg-pr-box {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); padding-bottom:50px; gap:15px;}
 .eg-pr-item img {width:40px; transition:0.5s ease;}
 .eg-pr-item:hover img {transform:rotateY(360deg);}
-<<<<<<< HEAD
-.eg-pr-item {text-align:center; background:#fff; box-shadow:0 0 15px #d7d7d7; display:inline-flex; align-items:center; flex-direction:column; justify-content:center; border-radius:20px; margin:auto; position:relative; padding:25px; overflow:hidden;}
-=======
 .eg-pr-item {text-align:center; background:#fff; box-shadow:0 0 15px #d7d7d7; align-items:center; flex-direction:column; justify-content:center; border-radius:20px; margin:auto; position:relative; padding:25px; overflow: hidden;height: 232px;}
->>>>>>> devsinu
 .eg-pr-item:before {position:absolute; content:""; width:150px; height:250px; background:#f1f1f1; bottom:0; right:0; transform:rotate(46deg) translate(62%, 14%); transition:0.5s ease;}
 .eg-pr-item:hover:before {background:rgb(211 0 0 / 20%);}
 .eg-pr-item h4 {margin:0; text-transform:capitalize; color:#00215e; font-size:19px; padding-left:16px;}
 .eg-pr-title {display:flex; width:100%; align-items:center; margin-bottom:15px;}
-<<<<<<< HEAD
-.eg-pr-item p {margin:0; position:relative;}
-=======
 .eg-pr-item p {
     margin: 0;
     position: relative;
@@ -132,7 +125,6 @@ header.sticky_header {border:none;}
     height: 178px;
     scrollbar-width: none;
 }
->>>>>>> devsinu
 .eg-pr-item:hover .eg-pr-title h4 {color:#1b7339;}
 .eg-revol-box {text-align:center; padding:70px; background:url(../images/revol-bg.jpg); border-radius:20px; background-repeat:no-repeat; background-size:cover; background-position:center; position:relative; overflow:hidden;}
 .eg-revol-box:before {position:absolute; content:""; width:100%; height:100%; background:rgb(40 40 40 / 91%); left:0; top:0;}
@@ -182,13 +174,8 @@ section.eg-run-sec {background:#ebebeb;}
 .team-box {position:relative; background:#e3e3e3; border-radius:45px 0; overflow:hidden; border-bottom:5px solid #00215e; border-top:5px solid #ffc55a;margin-bottom: 15px;}
 .team-cont a {width:65px; height:65px; display:inline-flex; align-items:center; justify-content:center; background:#fff; border-radius:50%; overflow:hidden; margin-top:10px; padding:10px;}
 .team-cont a img {width:50px;}
-<<<<<<< HEAD
-.team-cont {position:absolute; top:20px; left:20px;}
-.team-cont h4 {margin:0; font-size:21px; font-weight:800;}
-=======
 .team-cont { background: #1b7339;}
 .team-cont h4 { margin: 0; font-size: 17px; font-weight: 800; color: #fff; padding: 10px 15px; }
->>>>>>> devsinu
 .team-cont a {color:#000; text-decoration:underline; font-weight:600;}
 .eg-quick-over-cont {text-align:center; max-width:900px; margin:auto;}
 .eg-quick-over-cont h1 {font-size:30px;}
@@ -891,12 +878,9 @@ ul#progressbar li:last-child .pt-pr-img:after {display:none;}
 #admin_tog.on .two {opacity:0;}
 #admin_tog.on .three {transform:rotate(-45deg) translate(4px, -5px);}
 .emil_title label {font-size:21px;}
-<<<<<<< HEAD
-=======
 .eg-run-icon .fas { z-index: 999; font-size: 25px; }
 .cont3 { position: relative; }
 .cont3 a img { width: 70px; border-radius: 45px; z-index: 99; top: 10px; position: absolute; left: 10px; }
->>>>>>> devsinu
 
 
 .p-autocomplete-items-wrapper li{
