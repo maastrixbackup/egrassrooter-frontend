@@ -7,14 +7,35 @@ const Team = ({ teamData }) => {
         <div className="row">
           {teamData?.map((team, i) => (
             <div key={i} className="col-lg-3 col-6 col-md-3">
+<<<<<<< HEAD
               <div className="team-box wow fadeInRight" data-wow-delay={`${(i + 1) * 0.2}s`}>
                 <div className="team-cont">
                   <h4>{team.party_owner_name}</h4>
+=======
+              {/* <div className="team-box wow fadeInRight" data-wow-delay={`${(i + 1) * 0.2}s`}>
+                <img src={team.candidate_image} alt />
+                <div className="team-cont">
+                  <h4></h4>
+>>>>>>> devsinu
                   <a href="#">
                     <img src={team.political_party_logo} alt />
                   </a>
                 </div>
+<<<<<<< HEAD
                 <img src={team.candidate_image} alt />
+=======
+              </div> */}
+              <div className="team-box wow fadeInRight" data-wow-delay={`${(i + 1) * 0.2}s`}>
+                <div class="cont3">
+                  <a href="#">
+                    <img src={team.political_party_logo} alt />
+                  </a>
+                  <img src={team.candidate_image} alt />
+                </div>
+                <div class="team-cont">
+                  <h4>{team.party_owner_name}</h4>
+                </div>
+>>>>>>> devsinu
               </div>
             </div>
           ))}

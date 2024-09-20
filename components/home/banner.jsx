@@ -10,9 +10,16 @@ const Banner = ({ banners }) => {
   const options = {
     margin: 30,
     responsiveClass: true,
+<<<<<<< HEAD
     nav: false,
     dots: true,
     autoplay: false,
+=======
+    loop:true,
+    nav: false,
+    dots: true,
+    autoplay: true,
+>>>>>>> devsinu
 
     smartSpeed: 1000,
     responsive: {

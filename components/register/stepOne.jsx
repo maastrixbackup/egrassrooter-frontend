@@ -153,7 +153,11 @@ function StepOne({ register, errors, data, watch }) {
                 className={
                   errors.pass ? "form-control errorBox" : "form-control"
                 }
+<<<<<<< HEAD
                 {...register("pass", { required: true })}
+=======
+                {...register("pass", { required: true, minLength: 8 })}
+>>>>>>> devsinu
               />
               {errors.pass && (
                 <p className="errorMsg">
