@@ -1,33 +1,18 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { PostData } from "../../utils/ApiCalls";
 import { toast } from "react-toastify";
 
-
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    contact_name: "",
-    contact_email: "",
-    contact_subject: "",
-    message: "",
-  });
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const [loading, setLoading] = useState(false);
-  const [responseMessage, setResponseMessage] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     setLoading(true);
-
     try {
-      const response = await PostData("contact-us-form", formData);
+      const response = await PostData("contact-us-form", data);
       toast.success(response.message);
-      location.reload();
+      reset(); // Reset the form after successful submission
     } catch (error) {
       toast.error("An error occurred while submitting the form.");
     } finally {
@@ -38,8 +23,6 @@ const ContactForm = () => {
   return (
     <section className="contact-two">
       <div className="container">
-        <div>
-        </div>
         <div className="row">
           <div className="col-xl-7">
             <div className="contact-two__left">
@@ -51,60 +34,69 @@ const ContactForm = () => {
               </div>
               <form
                 className="contact-form-validated contact-two__form"
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="row">
-                  <div className="col-xl-6 col-lg-6">
-                    <div className="contact-two__input-box">
+                  <div className="col-lg-6 col-md-6">
+                    <div className="form-group">
                       <input
                         type="text"
-                        name="contact_name"
-                        placeholder="Name"
-                        required
-                        aria-required="true"
-                        value={formData.contact_name}
-                        onChange={handleChange}
+                        placeholder="Enter Name"
+                        className={errors.contact_name ? "form-control errorBox" : "form-control"}
+                        {...register("contact_name", { required: true })}
                       />
+                      {errors.contact_name && (
+                        <p className="errorMsg">
+                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="col-xl-6 col-lg-6">
-                    <div className="contact-two__input-box">
+                  <div className="col-lg-6 col-md-6">
+                    <div className="form-group">
                       <input
                         type="email"
-                        name="contact_email"
-                        placeholder="E-mail"
-                        required
-                        aria-required="true"
-                        value={formData.contact_email}
-                        onChange={handleChange}
+                        placeholder="Enter Email"
+                        className={errors.contact_email ? "form-control errorBox" : "form-control"}
+                        {...register("contact_email", { required: true })}
                       />
+                      {errors.contact_email && (
+                        <p className="errorMsg">
+                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="col-xl-12 col-lg-12">
-                    <div className="contact-two__input-box">
+                  <div className="col-lg-6 col-md-6">
+                    <div className="form-group">
                       <input
                         type="text"
-                        name="contact_subject"
-                        placeholder="Subject"
-                        required
-                        aria-required="true"
-                        value={formData.contact_subject}
-                        onChange={handleChange}
+                        placeholder="Enter Subject"
+                        className={errors.contact_subject ? "form-control errorBox" : "form-control"}
+                        {...register("contact_subject", { required: true })}
                       />
+                      {errors.contact_subject && (
+                        <p className="errorMsg">
+                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="col-xl-12">
-                    <div className="contact-two__input-box text-message-box">
+                  <div className="col-lg-12">
+                    <div className="form-group">
                       <textarea
-                        name="message"
-                        placeholder="Message"
-                        required
-                        value={formData.message}
-                        onChange={handleChange}
+                        placeholder="Enter Message"
+                        className={errors.message ? "form-control errorBox" : "form-control"}
+                        {...register("message", { required: true })}
                       />
+                      {errors.message && (
+                        <p className="errorMsg">
+                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <div className="col-xl-12">
+                  <div className="col-lg-12">
                     <div className="contact-two__btn-box">
                       <button
                         type="submit"
@@ -117,7 +109,6 @@ const ContactForm = () => {
                   </div>
                 </div>
               </form>
-              {responseMessage && <p>{responseMessage}</p>}
             </div>
           </div>
           <div className="col-xl-5">
