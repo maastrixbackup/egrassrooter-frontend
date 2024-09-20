@@ -10,6 +10,7 @@ const Testimonial = ({ Testimonials }) => {
   const options = {
     margin: 30,
     responsiveClass: true,
+    loop:true,
     nav: false,
     dots: true,
     autoplay: true,
