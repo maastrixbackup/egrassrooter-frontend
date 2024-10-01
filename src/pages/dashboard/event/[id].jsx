@@ -60,7 +60,7 @@ const Edit = () => {
     e.preventDefault();
     const tokenData = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
-  
+
     if (tokenData && userId) {
       try {
         // Add event ID to the data object
@@ -78,7 +78,7 @@ const Edit = () => {
           address: event.address,
           token: userId, // Include token here if needed
         };
-  
+
         // Verify token before updating the event
         const verifyTokenResponse = await PostData("verify-token", { token: userId }, "", `Bearer ${tokenData}`);
         if (verifyTokenResponse.status === 200) {
@@ -103,7 +103,7 @@ const Edit = () => {
       toast.error("No token found.");
     }
   };
-  
+
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -137,7 +137,7 @@ const Edit = () => {
             <div className="row">
               <div className="col-lg-4 col-md-6">
                 <div className="form-group">
-                <input
+                  <input
                     type="hidden"
                     name="id"
                     value={id}
@@ -188,7 +188,7 @@ const Edit = () => {
                     </div>
                   </div>
                   <div className="ev-img">
-                      <Image src={event.event_image} alt="Event Banner" width={100} height={100} />
+                    <Image src={event.event_image} alt="Event Banner" width={100} height={100} />
                   </div>
                 </div>
               </div>
@@ -301,21 +301,21 @@ const Edit = () => {
                     className="form-control"
                     rows={4}
                     required
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-12 text-end">
-                  <button type="submit" className="btn-event">
-                    Update Event
-                  </button>
+                  />
                 </div>
               </div>
-            </form>
-          </div>
+              <div className="col-lg-12 text-end">
+                <button type="submit" className="btn-event">
+                  Update Event
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    );
-  };
-  
-  export default Edit;
-  
+    </div>
+  );
+};
+
+export default Edit;
+
