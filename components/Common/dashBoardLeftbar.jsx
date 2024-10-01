@@ -2,15 +2,14 @@ import Link from "next/link";
 import React from "react";
 import dynamic from 'next/dynamic';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { signOut } from 'next-auth/react';  // Import signOut from NextAuth
-import { useRouter } from 'next/router'; // Import useRouter
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-// Dynamically import Sidebar to only render it on the client
 const Sidebar = dynamic(() => import("react-pro-sidebar").then(mod => mod.Sidebar), { ssr: false });
 
 const DashboardLeftbar = () => {
     
-    const router = useRouter(); // Initialize router
+    const router = useRouter();
     
     const handleSignOut = () => {
         localStorage.clear();
@@ -18,8 +17,21 @@ const DashboardLeftbar = () => {
     };
 
     const isActive = (path) => {
+        if (path === '/') {
+            return router.pathname === path;
+        }
         return router.pathname === path || router.pathname.startsWith(path);
     };
+
+    // Utility function to render menu items with active class
+    const renderMenuItem = (href, label, icon) => (
+        <MenuItem
+            icon={icon}
+            className={isActive(href) ? 'active' : ''}
+        >
+            <Link href={href}>{label}</Link>
+        </MenuItem>
+    );
 
     return (
         <div className="sidebar_sec_lft">
@@ -41,95 +53,37 @@ const DashboardLeftbar = () => {
             <div className="sidebar_sec_lft_menu">
                 <Sidebar>
                     <Menu>
-                        <MenuItem 
-                            icon={<i className="fa fa-fw fa-dashboard"></i>}
-                            className={isActive('/dashboard') ? 'active' : ''}
-                        >
-                            <Link href="/dashboard">Dashboard</Link>
-                        </MenuItem>
+                        <MenuItem icon={<i className="fa fa-fw fa-dashboard"></i>} className={router.pathname === '/dashboard' ? 'active' : ''}><Link href="/dashboard">Dashboard</Link></MenuItem>
                         <MenuItem 
                             icon={<i className="fa-solid fa-chart-pie"></i>}
                             className={isActive('/senate-analysis') ? 'active' : ''}
+                            onClick={() => router.push('/senate-analysis')}
                         >
                             Senate Analysis
                         </MenuItem>
                         <SubMenu label={<span><i className="fas fa-tasks"></i> Plan </span>}>
-                            <MenuItem 
-                                icon={<i className="fa-solid fa-location-dot"></i>}
-                                className={isActive('/map') ? 'active' : ''}
-                            >
-                                Map
-                            </MenuItem>
-                            <MenuItem 
-                                icon={<i className="fa-solid fa-building"></i>}
-                                className={isActive('/organise') ? 'active' : ''}
-                            >
-                                Organise
-                            </MenuItem>
+                            {renderMenuItem("/map", "Map", <i className="fa-solid fa-location-dot"></i>)}
+                            {renderMenuItem("/organise", "Organise", <i className="fa-solid fa-building"></i>)}
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
-                            <MenuItem 
-                                className={isActive('/dashboard/analytics') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/analytics">Give Feedback</Link>
-                            </MenuItem>
-                            <MenuItem 
-                                className={isActive('/dashboard/feedback-list') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/feedback-list">Feedback List</Link>
-                            </MenuItem>
+                            {renderMenuItem("/dashboard/analytics", "Give Feedback", null)}
+                            {renderMenuItem("/dashboard/feedback-list", "Feedback List", null)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Analysis </span>}>
-                                <MenuItem 
-                                    className={isActive('/dashboard/analysis/detailed') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/analysis/detailed">Canvassing</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/analysis/summary') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/analysis/summary">Election</Link>
-                                </MenuItem>
+                                {renderMenuItem("/dashboard/analysis/detailed", "Canvassing", null)}
+                                {renderMenuItem("/dashboard/analysis/summary", "Election", null)}
                             </SubMenu>
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Organize </span>}>
-                            <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Survey </span> }>
-                                <MenuItem 
-                                    className={isActive('/dashboard/surveylist') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/surveylist">Surveys</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/surveylist/addsurvey') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/surveylist/addsurvey">New Surveys</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/feedback-list') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/feedback-list">Surveys Response</Link>
-                                </MenuItem>
+                            <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Survey </span>}>
+                                {renderMenuItem("/dashboard/surveylist", "Surveys", null)}
+                                {renderMenuItem("/dashboard/surveylist/addsurvey", "New Surveys", null)}
+                                {renderMenuItem("/dashboard/feedback-list", "Surveys Response", null)}
                             </SubMenu>
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Team Management </span>}>
-                                <MenuItem 
-                                    className={isActive('/dashboard/team') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/team">Teams</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/team/newteam') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/team/newteam">New Teams</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/member') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/member">Member List</Link>
-                                </MenuItem>
-                                <MenuItem 
-                                    className={isActive('/dashboard/team/addmember') ? 'active' : ''}
-                                >
-                                    <Link href="/dashboard/team/addmember">New Member</Link>
-                                </MenuItem>
+                                {renderMenuItem("/dashboard/team", "Teams", null)}
+                                {renderMenuItem("/dashboard/team/newteam", "New Teams", null)}
+                                {renderMenuItem("/dashboard/member", "Member List", null)}
+                                {renderMenuItem("/dashboard/team/addmember", "New Member", null)}
                             </SubMenu>
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Engagement </span>}>
@@ -138,38 +92,16 @@ const DashboardLeftbar = () => {
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Twitter</MenuItem>
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Whatsapp</MenuItem>
                             </SubMenu>
-                            <MenuItem 
-                                className={isActive('/dashboard/bulkemail') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/bulkemail">Email & Messaging</Link>
-                            </MenuItem>
-                            <MenuItem 
-                                className={isActive('/dashboard/pollingagent') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/pollingagent">Polling Agents</Link>
-                            </MenuItem>
-                            <MenuItem 
-                                className={isActive('/dashboard/election-campaign') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/election-campaign">Election Campaign</Link>
-                            </MenuItem>
+                            {renderMenuItem("/dashboard/bulkemail", "Email & Messaging", null)}
+                            {renderMenuItem("/dashboard/pollingagent", "Polling Agents", null)}
+                            {renderMenuItem("/dashboard/election-campaign", "Election Campaign", null)}
                         </SubMenu>
-                        <SubMenu label={<span> <i className="fa-solid fa-handshake"></i> Website </span>}>
-                            <MenuItem 
-                                icon={<i className="fa-solid fa-envelope"></i>}
-                                className={isActive('/dashboard/event') ? 'active' : ''}
-                            >
-                                <Link href="/dashboard/event">Manage Event</Link>
-                            </MenuItem>
+                        <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Website </span>}>
+                            {renderMenuItem("/dashboard/event", "Manage Event", <i className="fa-solid fa-envelope"></i>)}
                             <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Manage Blog</MenuItem>
                         </SubMenu>
-                        <MenuItem 
-                            icon={<i className="fa-solid fa-house"></i>}
-                            className={isActive('/') ? 'active' : ''}
-                        >
-                            <Link href="/">Home</Link>
-                        </MenuItem>
-                        <MenuItem icon={<i className="fa-solid fa-user"></i>}>My Profile</MenuItem>
+                        <MenuItem icon={<i className="fa-solid fa-house"></i>}className={router.pathname === '/' ? 'active' : ''}><Link href="/">Home</Link></MenuItem>
+                        {renderMenuItem("/dashboard/profile", "My Profile", <i className="fa-solid fa-user"></i>)}
                         <MenuItem 
                             icon={<i className="fa-solid fa-right-from-bracket"></i>} 
                             onClick={handleSignOut}

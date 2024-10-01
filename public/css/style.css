@@ -584,7 +584,7 @@ footer {background:#fff; box-shadow:0 0 15px #dfdfdf; padding-top:25px;}
 .ele-party-bx ul li.active::before {opacity:1; color:green;}
 .ed-pr-bx {background:#fff; box-shadow:0 0 15px #e3e3e3; padding:25px; position:relative;}
 .ed-pr-img img {border-radius:50%;}
-.ed-pr-img {position:relative; width:100px; height:100px; margin:auto; border-radius:50%; background:#26a9e0; padding:5px;}
+.ed-pr-img {position:relative; width:100px; margin:auto; border-radius:50%; background:#26a9e0; padding:5px;}
 .ed-pr-img:before {position:absolute; content:''; width:15px; height:15px; background:#05e105; bottom:10px; right:9px; border-radius:50%; border:2px solid #545454;}
 .ed-pr-title {text-align:center; margin-top:15px; border-top:1px solid #dfdfdf; padding-top:10px;}
 .ed-pr-title h4 {margin:0; color:#008bc5;}

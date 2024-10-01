@@ -181,8 +181,7 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="campaign_type">Role Type <span>*</span></label>
-                    <select
-                        id="campaign_type" name="campaign_type" className={errors.campaign_type ? "form-select errorBox" : "form-select"} {...register("campaign_type", { required: true })}>
+                    <select id="campaign_type" name="campaign_type" className={errors.campaign_type ? "form-select errorBox" : "form-select"} {...register("campaign_type", { required: true })}>
                         <option value="">Select Campaign Type</option>
                         {data.role_type.map((eleType, i) => (
                           <option key={i} value={eleType.role_id}>
