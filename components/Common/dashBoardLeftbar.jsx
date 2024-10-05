@@ -54,17 +54,8 @@ const DashboardLeftbar = () => {
                 <Sidebar>
                     <Menu>
                         <MenuItem icon={<i className="fa fa-fw fa-dashboard"></i>} className={router.pathname === '/dashboard' ? 'active' : ''}><Link href="/dashboard">Dashboard</Link></MenuItem>
-                        <MenuItem 
-                            icon={<i className="fa-solid fa-chart-pie"></i>}
-                            className={isActive('/senate-analysis') ? 'active' : ''}
-                            onClick={() => router.push('/senate-analysis')}
-                        >
-                            Senate Analysis
-                        </MenuItem>
-                        <SubMenu label={<span><i className="fas fa-tasks"></i> Plan </span>}>
-                            {renderMenuItem("/map", "Map", <i className="fa-solid fa-location-dot"></i>)}
-                            {renderMenuItem("/organise", "Organise", <i className="fa-solid fa-building"></i>)}
-                        </SubMenu>
+                        <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>}className={isActive('/senate-analysis') ? 'active' : ''} onClick={() => router.push('/senate-analysis')}>Senate Analysis</MenuItem>
+                        <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
                             {renderMenuItem("/dashboard/analytics", "Give Feedback", null)}
                             {renderMenuItem("/dashboard/feedback-list", "Feedback List", null)}
@@ -94,7 +85,7 @@ const DashboardLeftbar = () => {
                             </SubMenu>
                             {renderMenuItem("/dashboard/bulkemail", "Email & Messaging", null)}
                             {renderMenuItem("/dashboard/pollingagent", "Polling Agents", null)}
-                            {renderMenuItem("/dashboard/election-campaign", "Election Campaign", null)}
+                            {renderMenuItem("/dashboard/election_campaign", "Election Campaign", null)}
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Website </span>}>
                             {renderMenuItem("/dashboard/event", "Manage Event", <i className="fa-solid fa-envelope"></i>)}

@@ -285,7 +285,7 @@ const Index = () => {
                                                                 <label for="">Political Party Affiliation: (Election official)</label>
                                                                 <select type="text" class="form-control" value={editProfile.political_party} onChange={handleChange} required>
                                                                     <option value="">Select Political Party</option>
-                                                                    {profile?.allparty?.map((party, i) => (
+                                                                    {editProfile?.allparty?.map((party, i) => (
                                                                         <option key={i} value={party.id}>
                                                                             {party.party_name}
                                                                         </option>
