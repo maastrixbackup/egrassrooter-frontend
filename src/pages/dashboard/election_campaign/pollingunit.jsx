@@ -9,20 +9,25 @@ const Wards = () => {
     const [wardsData, setWards] = useState([]);
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const { id } = router.query; 
+    const [selectedPollingUnit, setSelectedPollingUnit] = useState(null);
+    const { id } = router.query;
+
+    const handleQuickView = (pollingUnit) => {
+        setSelectedPollingUnit(pollingUnit);
+    };
 
     useEffect(() => {
         const fetchWards = async () => {
             if (typeof window !== "undefined" && id) {
                 const tokenData = localStorage.getItem("token");
                 const userId = localStorage.getItem("userId");
-    
+
                 const cachedWards = localStorage.getItem(`pollingData_${id}`);
                 if (cachedWards) {
                     setWards(JSON.parse(cachedWards));
                     return;
                 }
-    
+
                 if (tokenData && userId) {
                     setLoading(true);
                     try {
@@ -49,7 +54,7 @@ const Wards = () => {
                 }
             }
         };
-    
+
         fetchWards();
     }, [router, id]);
 
@@ -80,15 +85,55 @@ const Wards = () => {
                                     <div className="elec_cont_details">
                                         <h2>{ward.polling_unit_name}</h2>
                                         <p>PU Code: {ward.pu_code}</p>
-                                        <div className="quick_icon" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <Link href="#" className="quick_icon" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => handleQuickView(ward)}>
                                             Quick View
-                                        </div>
-                                    </div>                           
+                                        </Link>
+                                    </div>
                                 </div>
+
                             ))}
                         </div>
                     </div>
                 )}
+                <div className="modal elec-bx-data-mod fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div className="elec-mod">
+                                    <div className="row align-items-center">
+                                        <div className="col-lg-6">
+                                            <div className="elec-img-mod">
+                                                <img src="/images/elec-img.jpg" alt="" />
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-6">
+                                            <div className="elec-mod-cont">
+                                                <h2>{selectedPollingUnit?.polling_unit_name}</h2>
+                                            </div>
+                                            <div className="elec-mod-tb">
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td>Code :</td>
+                                                        <td>{selectedPollingUnit?.pu_code}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Ward</td>
+                                                        <td>{wardsData?.electionwarddata?.ward_name}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>LGA</td>
+                                                        <td>{wardsData?.lgadata?.lga_name}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -975,6 +975,22 @@ margin: 0;
 }
 .img-bx img{width: 50px;}
 
+.btn-toggle-status {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .button-publish {
+    background-color: green;
+  }
+  
+  .button-not-publish {
+    background-color: red;
+  }
+
 
 @media only screen and (min-width: 1601px) and (max-width:4000px) {}
 @media only screen and (min-width: 1501px) and (max-width:1700px) {}

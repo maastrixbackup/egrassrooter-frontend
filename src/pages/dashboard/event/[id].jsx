@@ -23,32 +23,17 @@ const Edit = () => {
     address: "",
   });
   const [loading, setLoading] = useState(true);
+  const [previewImage, setPreviewImage] = useState(null); // New state for image preview
 
   useEffect(() => {
     const fetchEventData = async () => {
       const tokenData = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
-      if (tokenData && userId) {
-        try {
-          const data = { token: userId };
-          const verifyTokenResponse = await PostData("verify-token", data, "", `Bearer ${tokenData}`);
-          if (verifyTokenResponse.status === 200) {
-            const res = await axiosGet(`event-edit/${id}`, `Bearer ${tokenData}`);
-            setEvent(res.event_data || {});
-            setLoading(false);
-          } else {
-            toast.error("Token verification failed. Please login again.");
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-            signOut();
-          }
-        } catch (error) {
-          toast.error("An error occurred while fetching the event data.");
-          setLoading(false);
-        }
-      } else {
-        toast.error("No token or event ID found.");
+      const res = await axiosGet(`event-edit/${id}`, `Bearer ${tokenData}`);
+      setEvent(res.event_data || {});
+      if (res.event_data && res.event_data.event_image) {
+        setPreviewImage(res.event_data.event_image); // Set initial image preview if available
       }
+      setLoading(false);
     };
 
     if (id) {
@@ -79,23 +64,9 @@ const Edit = () => {
           token: userId, // Include token here if needed
         };
 
-        // Verify token before updating the event
-        const verifyTokenResponse = await PostData("verify-token", { token: userId }, "", `Bearer ${tokenData}`);
-        if (verifyTokenResponse.status === 200) {
-          // Make the API call to update the event
-          const res = await PostData(`event-update`, data, "", `Bearer ${tokenData}`);
-          if (res.success == true) {
-            toast.success(res.message);
-            router.push("/dashboard/event"); // Redirect to the event list
-          } else {
-            toast.error(res.message);
-          }
-        } else {
-          toast.error("Token verification failed. Please login again.");
-          localStorage.removeItem('token');
-          localStorage.removeItem('userId');
-          signOut();
-        }
+        const res = await PostData(`event-update`, data, "", `Bearer ${tokenData}`);
+        toast.success(res.message);
+        router.push("/dashboard/event");
       } catch (error) {
         toast.error("An error occurred while updating the event.");
       }
@@ -104,13 +75,22 @@ const Edit = () => {
     }
   };
 
-
+  // Handle form field changes including image selection
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setEvent({
-      ...event,
-      [name]: files ? files[0] : value,
-    });
+    if (name === "event_image" && files && files.length > 0) {
+      const imageFile = files[0];
+      setEvent({
+        ...event,
+        [name]: imageFile,
+      });
+      setPreviewImage(URL.createObjectURL(imageFile)); // Generate and set the image preview URL
+    } else {
+      setEvent({
+        ...event,
+        [name]: value,
+      });
+    }
   };
 
   if (loading) {
@@ -137,23 +117,11 @@ const Edit = () => {
             <div className="row">
               <div className="col-lg-4 col-md-6">
                 <div className="form-group">
-                  <input
-                    type="hidden"
-                    name="id"
-                    value={id}
-                    onChange={handleChange}
-                  />
+                  <input type="hidden" name="id" value={id} onChange={handleChange} />
                   <label>
                     Event Title <span>*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={event.title}
-                    onChange={handleChange}
-                    className="form-control"
-                    required
-                  />
+                  <input type="text" name="title" value={event.title} onChange={handleChange} className="form-control" required />
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
@@ -161,14 +129,7 @@ const Edit = () => {
                   <label>
                     Slug Name <span>*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="slug"
-                    value={event.slug}
-                    onChange={handleChange}
-                    className="form-control"
-                    required
-                  />
+                  <input type="text" name="slug" value={event.slug} onChange={handleChange} className="form-control" required />
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
@@ -179,16 +140,13 @@ const Edit = () => {
                   <div className="file-upload">
                     <div className="file-select">
                       <div className="file-select-button">Choose File</div>
-                      <input
-                        type="file"
-                        name="event_image"
-                        onChange={handleChange}
-                        accept="image/*"
-                      />
+                      <input type="file" name="event_image" onChange={handleChange} accept="image/*" />
                     </div>
                   </div>
                   <div className="ev-img">
-                    <Image src={event.event_image} alt="Event Banner" width={100} height={100} />
+                    {previewImage && (
+                      <Image src={previewImage} alt="Event Banner" width={100} height={100} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -197,14 +155,7 @@ const Edit = () => {
                   <label>
                     Video URL <span>*</span>
                   </label>
-                  <input
-                    type="text"
-                    name="event_url"
-                    value={event.event_url}
-                    onChange={handleChange}
-                    className="form-control"
-                    required
-                  />
+                  <input type="text" name="event_url" value={event.event_url} onChange={handleChange} className="form-control" required />
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
@@ -212,13 +163,7 @@ const Edit = () => {
                   <label>
                     Event Type <span>*</span>
                   </label>
-                  <select
-                    name="event_type"
-                    value={event.event_type}
-                    onChange={handleChange}
-                    className="form-select"
-                    required
-                  >
+                  <select name="event_type" value={event.event_type} onChange={handleChange} className="form-select" required >
                     <option value="">--Select--</option>
                     <option value="0">Virtual</option>
                     <option value="1">Hybrid</option>
@@ -231,14 +176,7 @@ const Edit = () => {
                   <label>
                     Event Date <span>*</span>
                   </label>
-                  <input
-                    type="date"
-                    name="event_date"
-                    value={event.event_date}
-                    onChange={handleChange}
-                    className="form-control"
-                    required
-                  />
+                  <input type="date" name="event_date" value={event.event_date} onChange={handleChange} className="form-control" required/>
                 </div>
               </div>
               <div className="col-lg-4 col-md-6">
@@ -246,14 +184,7 @@ const Edit = () => {
                   <label>
                     Event Time <span>*</span>
                   </label>
-                  <input
-                    type="time"
-                    name="event_time"
-                    value={event.event_time}
-                    onChange={handleChange}
-                    className="form-control"
-                    required
-                  />
+                  <input type="time" name="event_time" value={event.event_time} onChange={handleChange} className="form-control" required/>
                 </div>
               </div>
               <div className="col-lg-8 col-md-6">
@@ -261,13 +192,7 @@ const Edit = () => {
                   <label>
                     Status <span>*</span>
                   </label>
-                  <select
-                    name="is_active"
-                    value={event.is_active}
-                    onChange={handleChange}
-                    className="form-select"
-                    required
-                  >
+                  <select name="is_active" value={event.is_active} onChange={handleChange} className="form-select" required >
                     <option value="">Select Status</option>
                     <option value="0">Publish</option>
                     <option value="1">Unpublish</option>
@@ -279,14 +204,7 @@ const Edit = () => {
                   <label>
                     Event Description <span>*</span>
                   </label>
-                  <textarea
-                    name="description"
-                    value={event.description}
-                    onChange={handleChange}
-                    className="form-control"
-                    rows={4}
-                    required
-                  />
+                  <textarea name="description" value={event.description} onChange={handleChange} className="form-control" rows={4} required />
                 </div>
               </div>
               <div className="col-lg-6 col-md-6">
@@ -294,14 +212,7 @@ const Edit = () => {
                   <label>
                     Event Address <span>*</span>
                   </label>
-                  <textarea
-                    name="address"
-                    value={event.address}
-                    onChange={handleChange}
-                    className="form-control"
-                    rows={4}
-                    required
-                  />
+                  <textarea name="address" value={event.address} onChange={handleChange} className="form-control" rows={4} required />
                 </div>
               </div>
               <div className="col-lg-12 text-end">
@@ -318,4 +229,3 @@ const Edit = () => {
 };
 
 export default Edit;
-
