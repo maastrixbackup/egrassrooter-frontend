@@ -109,9 +109,9 @@ const MemberList = () => {
                     <td>{member.created}</td>
                     <td>
                         <div class="btn-flex">
-                            <a href="#" class="btn-share">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
+                            <Link href={`/dashboard/member/${member.id}`} className="btn-share">
+                              <i className="fa-regular fa-pen-to-square" />
+                            </Link>
                             <a href="#" class="btn-danger"
                                 onClick={(e) => {
                                     e.preventDefault(); // Prevent default link behavior

@@ -100,8 +100,8 @@ const Header = () => {
                     <li className={isActive("/contact") ? "active" : ""}>
                       <Link href="/contact">Contact</Link>
                     </li>
-                    <li className={isActive("/donate") ? "active" : ""}>
-                      <a href="#">Donate</a>
+                    <li className={isActive("/donation") ? "active" : ""}>
+                      <Link href="/donation">Donate</Link>
                     </li>
                     <li className="mob-mode">
                       <a href="#">Login</a>

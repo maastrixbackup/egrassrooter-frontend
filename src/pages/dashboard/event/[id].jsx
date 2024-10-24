@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Edit = () => {
   const router = useRouter();
-  const { id } = router.query; // Extract event ID from the URL
+  const { id } = router.query; 
   const [event, setEvent] = useState({
     id: "",
     title: "",
