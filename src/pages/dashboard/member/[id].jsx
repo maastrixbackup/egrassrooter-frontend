@@ -192,6 +192,7 @@ const Edit = () => {
                             <div className="row">
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
+                                        <input type="hidden" name="id" value={id} onChange={handleChange} />
                                         <label htmlFor="campaign_type">Role Type <span>*</span></label>
                                         <select class="form-control" id="campaign_type" name="campaign_type" value={member.role_type} onChange={handleChange} required>
                                             <option value="">Select Campaign Type</option>
@@ -206,82 +207,52 @@ const Edit = () => {
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="name">Member Name <span>*</span></label>
-                                        <input id="name" type="text" name="name" value={member.name} placeholder="" className="form-control" {...register("name", { required: true })} />
-                                        {errors.name && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <input type="text" name="name" className="form-control" value={member.name} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
-                                        <label htmlFor="gender">Gender <span>*</span></label>
+                                        <label>Gender <span>*</span></label>
                                         <div className="form-group-flex">
                                             <div className="form-group">
-                                                <input type="radio" id="male" name="gender" checked={member.gender === "male"} value="male" {...register("gender", { required: true })} />
+                                                <input type="radio" id="male" name="gender" value="male" checked={member.gender === "male"} onChange={handleChange} required />
                                                 <label htmlFor="male">MALE</label>
                                             </div>
                                             <div className="form-group">
-                                                <input type="radio" id="female" name="gender" checked={member.gender === "female"} value="female" {...register("gender", { required: true })} />
+                                                <input type="radio" id="female" name="gender" value="female" checked={member.gender === "female"} onChange={handleChange} required />
                                                 <label htmlFor="female">FEMALE</label>
                                             </div>
                                         </div>
-                                        {errors.gender && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="phone_number">Phone Number <span>*</span></label>
-                                        <input id="phone_number" type="number" value={member.phone_number} name="phone_number" placeholder="" className="form-control" {...register("phone_number", { required: true })} />
-                                        {errors.phone_number && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <input type="number" name="phone_number" className="form-control" value={member.phone_number} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="email">Email Id <span>*</span></label>
-                                        <input id="email" type="email" name="email" placeholder="" value={member.email_id} className="form-control" {...register("email", { required: true })} />
-                                        {errors.email && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <input type="email" name="email" className="form-control" value={member.email_id} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="date_of_birth">Date of Birth <span>*</span></label>
-                                        <input id="date_of_birth" type="date" name="date_of_birth" value={member.dob} className="form-control" {...register("date_of_birth", { required: true })} />
-                                        {errors.date_of_birth && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <input type="date" name="date_of_birth" className="form-control" value={member.dob} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="voters_id">Voters ID Number <span>*</span></label>
-                                        <input id="voters_id" type="text" name="voters_id" value={member.voters_id_number} placeholder="" className="form-control" {...register("voters_id", { required: true })} />
-                                        {errors.voters_id && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <input type="text" name="voters_id" className="form-control" value={member.voters_id_number} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="state">Voting State <span>*</span></label>
-                                        <select id="state" name="state" value={member.state} className={`form-select ${errors.state ? "errorBox" : ""}`} {...register("state", { required: true })}>
+                                        <select id="state" name="state" value={member.state} className="form-select" onChange={handleChange} required>
                                             <option value="">Select State</option>
                                             {data.statedata.map((state, i) => (
                                                 <option key={i} value={state.id}>
@@ -295,7 +266,7 @@ const Edit = () => {
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="senatorial_state">Senatorial State</label>
-                                        <select id="senatorial_state" name="senatorial_state" value={member.senatorial} className={`form-select ${errors.senatorial_state ? "errorBox" : ""}`} {...register("senatorial_state", { required: true })}>
+                                        <select id="senatorial_state" name="senatorial_state" value={member.senatorial} className="form-select" onChange={handleChange} required>
                                             <option value="">Select Senatorial State</option>
                                             {senatorialData.map((senatorial, i) => (
                                                 <option key={i} value={senatorial.id}>
@@ -347,36 +318,36 @@ const Edit = () => {
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="code">Code</label>
-                                        <input id="code" type="text" name="code" value={member.code} placeholder="" className="form-control" {...register("code")} />
+                                        <input type="text" name="code" className="form-control" value={member.code} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="occupation">Occupation</label>
-                                        <input id="occupation" type="text" name="occupation" value={member.occupation} placeholder="" className="form-control" {...register("occupation")} />
+                                        <input type="text" name="occupation" className="form-control" value={member.occupation} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="latitude">Latitude</label>
-                                        <input id="latitude" type="text" name="latitude" placeholder="" value={member.latitude} className="form-control" {...register("latitude")} />
+                                        <input type="text" name="latitude" className="form-control" value={member.latitude} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="longitude">Longitude</label>
-                                        <input id="longitude" type="text" name="longitude" placeholder="" value={member.longitude} className="form-control" {...register("longitude")} />
+                                        <input type="text" name="longitude" className="form-control" value={member.longitude} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group"><label htmlFor="date_of_registration"> Date of Registration</label>
-                                        <input id="date_of_registration" type="text" name="date_of_registration" value={member.date_of_registration} placeholder="" className="form-control" {...register("date_of_registration")} />
+                                        <input type="text" name="date_of_registration" className="form-control" value={member.date_of_registration} onChange={handleChange} required />
                                     </div>
                                 </div>
                                 <div className="col-lg-4">
                                     <div className="form-group">
                                         <label htmlFor="party">Political Party</label>
-                                        <select id="party" name="party" value={member.political_party} className={errors.party ? "form-select errorBox" : "form-select"} {...register("party", { required: true })}>
+                                        <select class="form-control" id="party" name="party" value={member.party} onChange={handleChange} required>
                                             <option value="">Select Political Party</option>
                                             {data.partydata && data.partydata.length > 0 ? (
                                                 data.partydata.map((eleType, i) => (
@@ -388,22 +359,12 @@ const Edit = () => {
                                                 <option disabled>No political parties available</option>
                                             )}
                                         </select>
-                                        {errors.party && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
                                     </div>
                                 </div>
                                 <div className="col-lg-12">
                                     <div className="form-group">
                                         <label htmlFor="address"> Address <span>*</span></label>
-                                        <textarea id="address" name="address" className="form-control" rows="4" {...register("address", { required: true })}>{member.address}</textarea>
-                                        {errors.address && (
-                                            <p className="errorMsg">
-                                                <i className="fas fa-exclamation-triangle"></i> This field is required
-                                            </p>
-                                        )}
+                                        <textarea id="address" name="address" className="form-control" rows="4" onChange={handleChange} required>{member.address}</textarea>
                                     </div>
                                 </div>
                                 <div className="col-lg-12">

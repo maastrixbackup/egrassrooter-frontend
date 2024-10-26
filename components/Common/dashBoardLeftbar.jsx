@@ -74,7 +74,6 @@ const DashboardLeftbar = () => {
                                 {renderMenuItem("/dashboard/team", "Teams", null)}
                                 {renderMenuItem("/dashboard/team/newteam", "New Teams", null)}
                                 {renderMenuItem("/dashboard/member", "Member List", null)}
-                                {renderMenuItem("/dashboard/team/addmember", "New Member", null)}
                             </SubMenu>
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Engagement </span>}>
@@ -89,7 +88,7 @@ const DashboardLeftbar = () => {
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Website </span>}>
                             {renderMenuItem("/dashboard/event", "Manage Event", <i className="fa-solid fa-envelope"></i>)}
-                            <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Manage Blog</MenuItem>
+                            {renderMenuItem("/dashboard/blog", "Manage Blog", <i className="fa-solid fa-envelope"></i>)}
                         </SubMenu>
                         <MenuItem icon={<i className="fa-solid fa-house"></i>}className={router.pathname === '/' ? 'active' : ''}><Link href="/">Home</Link></MenuItem>
                         {renderMenuItem("/dashboard/profile", "My Profile", <i className="fa-solid fa-user"></i>)}

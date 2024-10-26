@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from "next/link";
 
 const addblog = () => {
   return (
@@ -7,19 +8,16 @@ const addblog = () => {
       <nav aria-label="breadcrumb" className="d-flex align-items-start">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="#">Dashboard</a>
-          </li>
-          <li className="breadcrumb-item">
-            <a href="#">Blog</a>
+            <Link href="/dashboard">Dashboard</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            Category
+            Add Blog
           </li>
         </ol>
       </nav>
       <div className="table-bx-main">
         <div className="table-title">
-          <h4>Add Category</h4>
+          <h4>Add Blog</h4>
           <a href="#" className="btn-back">
             <i className="fal fa-angle-double-left" />
           </a>

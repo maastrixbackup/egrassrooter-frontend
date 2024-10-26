@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const MemberList = () => {
-  const [members, setEvents] = useState([]);
+  const [members, setMember] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +13,7 @@ const MemberList = () => {
 
       const res = await axiosGet("member", `Bearer ${tokenData}`);
       if (res.data) {
-        setEvents(res.data || []);
+        setMember(res.data || []);
       } else {
         toast.error("Failed to fetch team data.");
       }

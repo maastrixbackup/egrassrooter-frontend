@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Category = () => {
   return (
@@ -20,9 +21,9 @@ const Category = () => {
         <div className="table-bx-main">
           <div className="table-title">
             <h4>Add Category</h4>
-            <a href="#" className="btn-back">
+            <Link href="#" className="btn-back">
               <i className="fal fa-angle-double-left" />
-            </a>
+            </Link>
           </div>
           <div className="event-form">
             <div className="row">
