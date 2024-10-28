@@ -50,6 +50,26 @@ const Index = () => {
     }
   };
 
+  const handleDelete = async (blogId) => {
+    const tokenData = localStorage.getItem("token");
+    if (tokenData) {
+      try {
+        const data = { id: blogId };
+        const response = await PostData("blogs-delete", data, "", `Bearer ${tokenData}`);
+        if (response.success) {
+          toast.success(response.message);
+          setBlogList((prevBlogs) => prevBlogs.filter((blog) => blog.id !== blogId));
+        } else {
+          toast.error(response.message || "An error occurred while deleting the event.");
+        }
+      } catch (error) {
+        toast.error("An error occurred while deleting the event.");
+      }
+    } else {
+      toast.error("No token found. Please login.");
+    }
+  };
+
   return (
     <div className="sidebar_sec_rgt">
       <nav aria-label="breadcrumb" className="d-flex align-items-start">
@@ -107,7 +127,7 @@ const Index = () => {
                     <td>{blog.description}</td>
                     <td>
                       <div className="ev-img">
-                        <Image src={blog.blog_image} alt="Blog Banner" width={100} height={100} onError={(e) => (e.target.style.display = 'none')} />
+                        <Image src={ blog.blog_image} alt="Event Banner" width={100} height={100} />
                       </div>
                     </td>
                     <td>
@@ -120,13 +140,13 @@ const Index = () => {
                     </td>
                     <td>
                       <div className="btn-flex">
-                        <a href="#" className="btn-share">
+                        <Link href={`/dashboard/blog/${blog.id}`} className="btn-share">
                           <i className="fa-regular fa-pen-to-square" />
-                        </a>
+                        </Link>
                         <a href="#" className="btn-danger" onClick={(e) => {
                           e.preventDefault();
                           if (window.confirm("Are you sure you want to delete this event?")) {
-                            handleDelete(event.id);
+                            handleDelete(blog.id);
                           }
                         }}>
                           <i className="fa-solid fa-xmark" />

@@ -57,18 +57,19 @@ const DashboardLeftbar = () => {
                         <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>}className={isActive('/senate-analysis') ? 'active' : ''} onClick={() => router.push('/senate-analysis')}>Senate Analysis</MenuItem>
                         <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
-                            {renderMenuItem("/dashboard/analytics", "Give Feedback", null)}
-                            {renderMenuItem("/dashboard/feedback-list", "Feedback List", null)}
+                            {/* {renderMenuItem("/dashboard/analytics", "Give Feedback", null)} */}
+                            {renderMenuItem("/dashboard/feedback", "Feedback List", null)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Analysis </span>}>
                                 {renderMenuItem("/dashboard/analysis/detailed", "Canvassing", null)}
                                 {renderMenuItem("/dashboard/analysis/summary", "Election", null)}
                             </SubMenu>
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Organize </span>}>
+                            {renderMenuItem("/dashboard/role", "Role", <i className="fa-solid fa-user-circle"></i>)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Survey </span>}>
                                 {renderMenuItem("/dashboard/surveylist", "Surveys", null)}
                                 {renderMenuItem("/dashboard/surveylist/addsurvey", "New Surveys", null)}
-                                {renderMenuItem("/dashboard/feedback-list", "Surveys Response", null)}
+                                {/* {renderMenuItem("/dashboard/feedback-list", "Surveys Response", null)} */}
                             </SubMenu>
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Team Management </span>}>
                                 {renderMenuItem("/dashboard/team", "Teams", null)}
