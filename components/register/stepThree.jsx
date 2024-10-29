@@ -186,7 +186,17 @@ const StepThree = ({
               <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                   <label for="">What is the name of your political party</label>
-                  <select name="political_party" id="" class="form-select">
+                  <select
+                    className={
+                      errors.political_party
+                        ? "form-select errorBox"
+                        : "form-select"
+                    }
+                    {...register("political_party", {
+                      required: "This field is required",
+                    })}
+                    class="form-select"
+                  >
                     <option value="">SELECT PARTY</option>
                     {data.partydata.map((party, i) => (
                       <option key={i} value={party.id}>
@@ -194,6 +204,12 @@ const StepThree = ({
                       </option>
                     ))}
                   </select>
+                  {errors.local_constituency_id && (
+                    <p className="errorMsg">
+                      <i className="fas fa-exclamation-triangle"></i>{" "}
+                      {errors.political_party.message}
+                    </p>
+                  )}
                 </div>
               </div>
             )}
