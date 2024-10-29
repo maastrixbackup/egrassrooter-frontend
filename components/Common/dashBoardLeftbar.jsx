@@ -54,14 +54,14 @@ const DashboardLeftbar = () => {
                 <Sidebar>
                     <Menu>
                         <MenuItem icon={<i className="fa fa-fw fa-dashboard"></i>} className={router.pathname === '/dashboard' ? 'active' : ''}><Link href="/dashboard">Dashboard</Link></MenuItem>
-                        <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>}className={isActive('/senate-analysis') ? 'active' : ''} onClick={() => router.push('/senate-analysis')}>Senate Analysis</MenuItem>
+                        <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>} className={router.pathname === '/dashboard/analysis' ? 'active' : ''}><Link href="/dashboard/analysis">Senate Analysis</Link></MenuItem>
                         <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
                             {/* {renderMenuItem("/dashboard/analytics", "Give Feedback", null)} */}
                             {renderMenuItem("/dashboard/feedback", "Feedback List", null)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Analysis </span>}>
                                 {renderMenuItem("/dashboard/analysis/detailed", "Canvassing", null)}
-                                {renderMenuItem("/dashboard/analysis/summary", "Election", null)}
+                                {renderMenuItem("/dashboard/electionresult", "Election", null)}
                             </SubMenu>
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Organize </span>}>
