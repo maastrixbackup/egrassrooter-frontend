@@ -65,7 +65,7 @@ const Index = () => {
         const cleaned = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
         let formatted = "";
         for (let i = 0; i < cleaned.length; i++) {
-            if (i > 0 && i % 4 === 0 && i < 24) {
+            if (i > 0 && i % 4 === 0 && i <= 24) {
                 formatted += "-";
             }
             formatted += cleaned.charAt(i);
@@ -192,7 +192,7 @@ const Index = () => {
                                                         <div className="col-lg-12">
                                                             <div className="file-form">
                                                                 <label className="form__container" id="upload-container">Choose or Drag & Drop File</label>
-                                                                <input id="upload-files" type="file" accept="image/*" multiple="multiple" />
+                                                                <input name="profile_photo" id="upload-files" type="file" accept="image/*" multiple="multiple" onChange={handleChange}/>
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-4">
@@ -259,7 +259,7 @@ const Index = () => {
                                                         <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Voter Identification Number (VIN)<span>*</span></label>
-                                                                <input type="text" name="vin" className="form-control" value={editProfile.vin} onChange={handleVinChange} pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}" required />
+                                                                <input type="text" name="vin" className="form-control" value={editProfile.vin} onChange={handleVinChange} pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}" required />
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-6">
