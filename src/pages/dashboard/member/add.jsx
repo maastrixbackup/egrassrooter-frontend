@@ -129,17 +129,12 @@ const Add = () => {
     const tokenData = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
-    if (!formData.name || !formData.task || !formData.description) {
-      toast.error("Please fill all required fields!");
-      return;
-    }
-
     if (tokenData && userId && await verifyToken(tokenData, userId)) {
       try {
-        const response = await PostData("team-add", formData, "", `Bearer ${tokenData}`);
+        const response = await PostData("member-add", formData, "", `Bearer ${tokenData}`);
         if (response.data) {
           toast.success(response.message);
-          router.push("/dashboard/team");
+          router.push("/dashboard/member");
         } else {
           toast.error(response.message);
         }

@@ -22,20 +22,40 @@ const verifyToken = async (token, userId) => {
 };
 
 const Edit = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
     const router = useRouter();
     const { id } = router.query;
-
-    const [data, setData] = useState({ role_type: [], statedata: [], partydata: [] });
+    const [adddata, setData] = useState({ role_type: [], statedata: [], partydata: [] });
     const [senatorialData, setSenatorialData] = useState([]);
     const [lgasData, setLgasData] = useState([]);
     const [wardsData, setWardsData] = useState([]);
     const [pussData, setPusData] = useState([]);
-    const [member, setMember] = useState({});
     const [loading, setLoading] = useState(true);
+    const [member, setMember] = useState({
+        id: "",
+        role_type: "",
+        name: "",
+        gender: "",
+        phone_number: "",
+        email: "",
+        date_of_birth: "",
+        voters_id: "",
+        state: "",
+        senatorial_state: "",
+        voting_local_government: "",
+        ward: "",
+        polling_unit: "",
+        code: "",
+        occupation: "",
+        latitude: "",
+        longitude: "",
+        date_of_registration: "",
+        party: "",
+        address: "",
+    });
 
     const watchedState = watch("state");
-    const watchedLgas = watch("voting_local_govt");
+    const watchedLgas = watch("voting_local_government");
     const watchedWard = watch("ward");
 
     useEffect(() => {
@@ -44,12 +64,16 @@ const Edit = () => {
             if (!tokenData || !id) return;
 
             const res = await axiosGet(`member-edit/${id}`, `Bearer ${tokenData}`);
-            setMember(res.member_data || {});
+            if (res.member_data) {
+                setMember(res.member_data);
+                // Set form values with member data
+                Object.keys(res.member_data).forEach(key => setValue(key, res.member_data[key]));
+            }
             setLoading(false);
         };
 
         if (id) fetchMemberData();
-    }, [id]);
+    }, [id, setValue]);
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -141,15 +165,22 @@ const Edit = () => {
     }, [watchedWard]);
 
     const handleUpdate = async (formData) => {
-        const tokenData = localStorage.getItem("token");
-        const userId = localStorage.getItem("userId");
+        e.preventDefault();
 
         if (tokenData && userId) {
             try {
-                const data = { ...formData, id, token: userId };
-                const res = await PostData("member-update", data, "", `Bearer ${tokenData}`);
-                toast.success(res.message);
-                router.push("/dashboard/event");
+                const data = {
+                    id: id,
+                    ...member,
+                };
+
+                const res = await PostData(`member-update`, data, "", `Bearer ${tokenData}`);
+                if (res.data) {
+                    toast.success(res.message);
+                    router.push("/dashboard/blog");
+                } else {
+                    toast.error(res.message);
+                }
             } catch (error) {
                 toast.error("An error occurred while updating the member.");
             }
@@ -159,14 +190,17 @@ const Edit = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setMember((prev) => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        setMember({
+            ...member,
+            [name]: files ? files[0] : value,
+        });
     };
 
-    const handleLogout = () => {
-        localStorage.clear();
-        router.push("/login");
-    };
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
 
     return (
         <div className="col-lg-12 col-md-12">
@@ -188,15 +222,14 @@ const Edit = () => {
                         <Link href="/dashboard/member" className="btn-back"><i className="fal fa-angle-double-left"></i></Link>
                     </div>
                     <div className="event-form">
-                        <form onSubmit={handleUpdate}>
+                        <form onSubmit={handleSubmit(handleUpdate)}>
                             <div className="row">
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
-                                        <input type="hidden" name="id" value={id} onChange={handleChange} />
                                         <label htmlFor="campaign_type">Role Type <span>*</span></label>
-                                        <select class="form-control" id="campaign_type" name="campaign_type" value={member.role_type} onChange={handleChange} required>
+                                        <select class="form-control" id="role_type" name="role_type" value={member.role_type} onChange={handleChange} required>
                                             <option value="">Select Campaign Type</option>
-                                            {data.role_type.map((eleType, i) => (
+                                            {adddata.role_type.map((eleType, i) => (
                                                 <option key={i} value={eleType.role_id}>
                                                     {eleType.role_name}
                                                 </option>
@@ -254,7 +287,7 @@ const Edit = () => {
                                         <label htmlFor="state">Voting State <span>*</span></label>
                                         <select id="state" name="state" value={member.state} className="form-select" onChange={handleChange} required>
                                             <option value="">Select State</option>
-                                            {data.statedata.map((state, i) => (
+                                            {adddata.statedata.map((state, i) => (
                                                 <option key={i} value={state.id}>
                                                     {state.state_name}
                                                 </option>
@@ -266,7 +299,7 @@ const Edit = () => {
                                 <div className="col-lg-4 col-md-6 col-6">
                                     <div className="form-group">
                                         <label htmlFor="senatorial_state">Senatorial State</label>
-                                        <select id="senatorial_state" name="senatorial_state" value={member.senatorial} className="form-select" onChange={handleChange} required>
+                                        <select id="senatorial_state" name="senatorial_state" value={member.senatorial} className="form-select" onChange={handleChange}>
                                             <option value="">Select Senatorial State</option>
                                             {senatorialData.map((senatorial, i) => (
                                                 <option key={i} value={senatorial.id}>
@@ -349,8 +382,8 @@ const Edit = () => {
                                         <label htmlFor="party">Political Party</label>
                                         <select class="form-control" id="party" name="party" value={member.party} onChange={handleChange} required>
                                             <option value="">Select Political Party</option>
-                                            {data.partydata && data.partydata.length > 0 ? (
-                                                data.partydata.map((eleType, i) => (
+                                            {adddata.partydata && adddata.partydata.length > 0 ? (
+                                                adddata.partydata.map((eleType, i) => (
                                                     <option key={i} value={eleType.id}>
                                                         {eleType.party_name}
                                                     </option>

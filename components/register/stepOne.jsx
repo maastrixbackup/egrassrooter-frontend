@@ -46,27 +46,6 @@ function StepOne({ register, errors, data, watch }) {
           <div className="col-lg-6 col-md-6">
             <div className="form-group">
               <select
-                name="user_type"
-                className={errors.user_type ? "form-select errorBox" : "form-select"}
-                {...register("user_type", { required: true })}
-              >
-                <option value="">Select User Type</option>
-                {data.role_type_data.map((roleType, i) => (
-                  <option key={i} value={roleType.id}>
-                    {roleType.role_name}
-                  </option>
-                ))}
-              </select>
-              {errors.user_type && (
-                <p className="errorMsg">
-                  <i className="fas fa-exclamation-triangle"></i> This field is required
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-6">
-            <div className="form-group">
-              <select
                 name="campaign_type"
                 className={errors.campaign_type ? "form-select errorBox" : "form-select"}
                 {...register("campaign_type", { required: true })}
@@ -79,6 +58,27 @@ function StepOne({ register, errors, data, watch }) {
                 ))}
               </select>
               {errors.campaign_type && (
+                <p className="errorMsg">
+                  <i className="fas fa-exclamation-triangle"></i> This field is required
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="col-lg-6 col-md-6">
+            <div className="form-group">
+              <select
+                name="user_type"
+                className={errors.user_type ? "form-select errorBox" : "form-select"}
+                {...register("user_type", { required: true })}
+              >
+                <option value="">Select User Type</option>
+                {data.role_type_data.map((roleType, i) => (
+                  <option key={i} value={roleType.id}>
+                    {roleType.role_name}
+                  </option>
+                ))}
+              </select>
+              {errors.user_type && (
                 <p className="errorMsg">
                   <i className="fas fa-exclamation-triangle"></i> This field is required
                 </p>
