@@ -59,7 +59,7 @@ const Index = () => {
                                     <td>{index + 1}</td>
                                     <td>{feedback.questions}</td>
                                     <td>{feedback.created}</td><td>
-                                        <a href={`/dashboard/surveylist/editquestions?id=${survey.id}&qs=${id}`} className="btn-share">
+                                        <a href={`/dashboard/feedback/surveyreply?id=${feedback.id}&sid=${feedback.survey_id}`} className="btn-share">
                                             <i className="fa fa-reply" />
                                         </a>
                                     </td>
