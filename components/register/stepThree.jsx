@@ -186,7 +186,7 @@ const StepThree = ({
               <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                   <label for="">What is the name of your political party</label>
-                  <select name="" id="" class="form-select">
+                  <select name="political_party" id="" class="form-select">
                     <option value="">SELECT PARTY</option>
                     {data.partydata.map((party, i) => (
                       <option key={i} value={party.id}>
