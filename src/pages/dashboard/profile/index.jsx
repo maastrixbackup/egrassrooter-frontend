@@ -29,7 +29,7 @@ const Index = () => {
                                 toast.error("Failed to fetch profile data.");
                             }
 
-                            const result = await axiosGet( `editprofile/${userId}`,`Bearer ${tokenData}`);
+                            const result = await axiosGet(`editprofile/${userId}`, `Bearer ${tokenData}`);
                             if (result.profile) {
                                 setEditProfile(result.profile || {});
                             } else {
@@ -271,7 +271,7 @@ const Index = () => {
                                                         <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Occupation/Employment Status</label>
-                                                                <input type="text"  name="employment" className="form-control" value={editProfile.employment} />
+                                                                <input type="text" name="employment" className="form-control" value={editProfile.employment} />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -294,7 +294,9 @@ const Index = () => {
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-12 text-end">
-                                                            <a href="#" class="btn-event">Update</a>
+                                                            <button type="submit" className="btn-event">
+                                                                Update
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
