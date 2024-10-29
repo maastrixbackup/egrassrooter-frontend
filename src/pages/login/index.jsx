@@ -75,7 +75,6 @@ const Index = ({ setBannerTitle }) => {
           localStorage.setItem("userId", res.user_details.id);
           router.push("/dashboard");
           toast.success(res.message);
-          reset();
         }
       }
     } catch (error) {
