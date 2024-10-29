@@ -1,51 +1,21 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 import { axiosGet, PostData } from "../../../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const MemberList = () => {
-  const [members, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [members, setMember] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const tokenData = localStorage.getItem("token");
-      const userId = localStorage.getItem("userId");
 
-      if (tokenData && userId) {
-        const data = { token: userId };
-
-        try {
-          const verifyTokenResponse = await PostData("verify-token", data, "", `Bearer ${tokenData}`);
-
-          if (verifyTokenResponse.status === 200) {
-            const res = await axiosGet("member", `Bearer ${tokenData}`);
-            if (res.data) {
-              setEvents(res.data || []);
-            } else {
-              toast.error("Failed to fetch team data.");
-            }
-          } else {
-            toast.error("Token verification failed. Please login again.");
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
-            signOut();
-          }
-        } catch (error) {
-          toast.error("An error occurred. Please login again.");
-          localStorage.removeItem("token");
-          localStorage.removeItem("userId");
-          signOut();
-        } finally {
-          setLoading(false);
-        }
+      const res = await axiosGet("member", `Bearer ${tokenData}`);
+      if (res.data) {
+        setMember(res.data || []);
       } else {
-        toast.error("No token or user ID found. Please login.");
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-        signOut();
+        toast.error("Failed to fetch team data.");
       }
     };
 
@@ -139,9 +109,9 @@ const MemberList = () => {
                     <td>{member.created}</td>
                     <td>
                         <div class="btn-flex">
-                            <a href="#" class="btn-share">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
+                            <Link href={`/dashboard/member/${member.id}`} className="btn-share">
+                              <i className="fa-regular fa-pen-to-square" />
+                            </Link>
                             <a href="#" class="btn-danger"
                                 onClick={(e) => {
                                     e.preventDefault(); // Prevent default link behavior

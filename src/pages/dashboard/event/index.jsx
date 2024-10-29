@@ -70,31 +70,24 @@ const Index = () => {
 
   const handleToggleStatus = async (eventId, currentStatus) => {
     const tokenData = localStorage.getItem("token");
-    if (tokenData) {
-      const newStatus = currentStatus === 0 ? 1 : 0;
+    const newStatus = currentStatus === 0 ? 1 : 0;
 
-      try {
-        const data = { id: eventId, is_active: newStatus };
-        const response = await PostData("event-status", data, "", `Bearer ${tokenData}`);
-
-        if (response.success) {
-          toast.success(response.message);
-          setEvents((prevEvents) => {
-            const updatedEvents = prevEvents.map((event) =>
-              event.id === eventId ? { ...event, is_active: newStatus } : event
-            );
-            console.log('Updated events:', updatedEvents); // Debug log
-            return updatedEvents;
-          });
-        } else {
-          toast.error(response.message);
-        }
-      } catch (error) {
-        console.error("Error updating event status:", error);
-        toast.error("An error occurred while updating the event status.");
+    try {
+      const data = { id: eventId, is_active: newStatus };
+      const response = await PostData("event-status", data, "", `Bearer ${tokenData}`);
+      if (response.success) {
+        toast.success(response.message);
+        setEvents((prevEvents) =>
+          prevEvents.map((event) =>
+            event.id === eventId ? { ...event, is_active: newStatus } : event
+          )
+        );
+      } else {
+        toast.error(response.message);
       }
-    } else {
-      toast.error("No token found. Please login.");
+    } catch (error) {
+      console.error("Error updating event status:", error);
+      toast.error("An error occurred while updating the event status.");
     }
   };
 
@@ -142,8 +135,8 @@ const Index = () => {
                     </div>
                   </td>
                   <td>
-                    <button className={`btn-toggle-status ${ event.is_active === 0 ? "button-publish" : "button-not-publish" }`} onClick={() => handleToggleStatus(event.id, event.is_active)} >
-                      {event.is_active == 0 ? "Publish" : "Unpublish"}
+                    <button className={`btn-toggle-status ${event.is_active === 0 ? "button-publish" : "button-not-publish"}`} onClick={() => handleToggleStatus(event.id, event.is_active)} >
+                      {event.is_active === 0 ? "Publish" : "Unpublish"}
                     </button>
                   </td>
                   <td>{event.event_date}</td>

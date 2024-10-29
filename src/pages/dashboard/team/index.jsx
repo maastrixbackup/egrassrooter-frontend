@@ -128,37 +128,19 @@ const TeamList = () => {
                       <div className="drop">
                         <ul>
                           <li>
-                            <a
-                              className="btn-invite-tb"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Invite Member"
-                              href="#"
-                            >
+                            <Link className="btn-invite-tb" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Invite Member" href={`/dashboard/team/inviteteam?id=${team.id}`}>
                               <i className="fa-solid fa-user" />
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
-                              className="btn-view-tb"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View Member"
-                              href="#"
-                            >
+                            <Link className="btn-view-tb" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="View Member" href={`/dashboard/team/listmember?id=${team.id}`}>
                               <i className="fad fa-eye" />
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
-                              className="btn-edit-tb"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Edit Member"
-                              href="#"
-                            >
+                            <Link className="btn-edit-tb" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Edit Member" href={`/dashboard/team/${team.id}`}>
                               <i className="fa-regular fa-pen-to-square" />
-                            </a>
+                            </Link>
                           </li>
                           <li>
                             <a

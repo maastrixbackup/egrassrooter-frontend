@@ -4,10 +4,13 @@ import { PostData } from "../../utils/ApiCalls";
 import { toast } from "react-toastify";
 
 const ContactForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, trigger, reset } = useForm();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    const isValid = await trigger(); // Manually trigger validation on form submit
+    if (!isValid) return;
+
     setLoading(true);
     try {
       const response = await PostData("contact-us-form", data);
@@ -21,7 +24,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact-two">
+    <section className="register-form">
       <div className="container">
         <div className="row">
           <div className="col-xl-7">
@@ -32,10 +35,7 @@ const ContactForm = () => {
                 </div>
                 <h2 className="section-title__title">Get in Touch Here</h2>
               </div>
-              <form
-                className="contact-form-validated contact-two__form"
-                onSubmit={handleSubmit(onSubmit)}
-              >
+              <form className="contact-form-validated contact-two__form" onSubmit={handleSubmit(onSubmit)} >
                 <div className="row">
                   <div className="col-lg-6 col-md-6">
                     <div className="form-group">
@@ -43,11 +43,11 @@ const ContactForm = () => {
                         type="text"
                         placeholder="Enter Name"
                         className={errors.contact_name ? "form-control errorBox" : "form-control"}
-                        {...register("contact_name", { required: true })}
+                        {...register("contact_name", { required: "Name is required" })}
                       />
                       {errors.contact_name && (
                         <p className="errorMsg">
-                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                          <i className="fas fa-exclamation-triangle"></i> {errors.contact_name.message}
                         </p>
                       )}
                     </div>
@@ -58,11 +58,11 @@ const ContactForm = () => {
                         type="email"
                         placeholder="Enter Email"
                         className={errors.contact_email ? "form-control errorBox" : "form-control"}
-                        {...register("contact_email", { required: true })}
+                        {...register("contact_email", { required: "Email is required" })}
                       />
                       {errors.contact_email && (
                         <p className="errorMsg">
-                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                          <i className="fas fa-exclamation-triangle"></i> {errors.contact_email.message}
                         </p>
                       )}
                     </div>
@@ -73,11 +73,11 @@ const ContactForm = () => {
                         type="text"
                         placeholder="Enter Subject"
                         className={errors.contact_subject ? "form-control errorBox" : "form-control"}
-                        {...register("contact_subject", { required: true })}
+                        {...register("contact_subject", { required: "Subject is required" })}
                       />
                       {errors.contact_subject && (
                         <p className="errorMsg">
-                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                          <i className="fas fa-exclamation-triangle"></i> {errors.contact_subject.message}
                         </p>
                       )}
                     </div>
@@ -87,11 +87,11 @@ const ContactForm = () => {
                       <textarea
                         placeholder="Enter Message"
                         className={errors.message ? "form-control errorBox" : "form-control"}
-                        {...register("message", { required: true })}
+                        {...register("message", { required: "Message is required" })}
                       />
                       {errors.message && (
                         <p className="errorMsg">
-                          <i className="fas fa-exclamation-triangle"></i> This field is required
+                          <i className="fas fa-exclamation-triangle"></i> {errors.message.message}
                         </p>
                       )}
                     </div>

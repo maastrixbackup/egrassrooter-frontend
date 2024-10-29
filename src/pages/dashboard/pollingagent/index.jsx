@@ -58,13 +58,7 @@ export default function RadioInputToggle() {
                         <div className="row">
                           <div className="col-lg-8">
                             <div className="d-flex gap-2">
-                              <input
-                                type="radio"
-                                name="option"
-                                value="email"
-                                checked={selectedOption === "email"}
-                                onChange={handleOptionChange}
-                              />
+                              <input type="radio" name="option" value="email" checked={selectedOption === "email"} onChange={handleOptionChange} />
                               <label>
                                 Email (Select Member of polling agents)
                               </label>
@@ -72,99 +66,48 @@ export default function RadioInputToggle() {
                           </div>
                           <div className="col-lg-4">
                             <div className="d-flex gap-2">
-                              <input
-                                type="radio"
-                                name="option"
-                                value="vin"
-                                checked={selectedOption === "vin"}
-                                onChange={handleOptionChange}
-                              />
+                              <input type="radio" name="option" value="vin" checked={selectedOption === "vin"} onChange={handleOptionChange} />
                               <label>VIN number</label>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div
-                        id="input1"
-                        className="input-box"
-                        style={{
-                          display:
-                            selectedOption === "email" ? "block" : "none",
-                        }}
-                      >
-                        <label htmlFor="input1-box">
-                          Polling Agent Email <span>*</span>
+                      <div id="input1" className="input-box" style={{ display: selectedOption === "email" ? "block" : "none", }}>
+                        <label htmlFor="input1-box"> Polling Agent Email <span>*</span>
                           <i className="fa-solid fa-circle-info" />
                         </label>
-                        <AutoComplete
-                          className="w-100"
-                          value={value}
-                          suggestions={items}
-                          completeMethod={search}
-                          onChange={(e) => setValue(e.value)}
-                        />
+                        <AutoComplete className="w-100" value={value} suggestions={items} completeMethod={search} onChange={(e) => setValue(e.value)}/>
                       </div>
-                      <div
-                        id="input2"
-                        className="input-box"
-                        style={{
-                          display: selectedOption === "vin" ? "block" : "none",
-                        }}
-                      >
-                        <label htmlFor="input1-box">
-                          Polling Agents VIN <span>*</span>
+                      <div id="input2" className="input-box" style={{ display: selectedOption === "vin" ? "block" : "none", }}>
+                        <label htmlFor="input1-box"> Polling Agents VIN <span>*</span>
                           <i className="fa-solid fa-circle-info" />
                         </label>
-                        <AutoComplete
-                          className="w-100"
-                          value={value2}
-                          suggestions={items2}
-                          completeMethod={search}
-                          onChange={(e) => setValue2(e.value)}
-                        />
+                        <AutoComplete className="w-100" value={value2} suggestions={items2} completeMethod={search} onChange={(e) => setValue2(e.value)}/>
                       </div>
                     </div>
                   </div>
 
                   <div className="col-lg-12">
                     <div className="form-group mt-3">
-                      <label htmlFor="input1-box">
-                        Polling Unit <span>*</span>
+                      <label htmlFor="input1-box"> Polling Unit <span>*</span>
                         <i className="fa-solid fa-circle-info" />
                       </label>
-                      <AutoComplete
-                          className="w-100"
-                          value={value3}
-                          suggestions={items3}
-                          completeMethod={search}
-                          onChange={(e) => setValue3(e.value)}
-                        />
+                      <AutoComplete className="w-100" value={value3} suggestions={items3} completeMethod={search} onChange={(e) => setValue3(e.value)}/>
                     </div>
                   </div>
                   <div className="col-lg-12 form-radio-bx mt-3">
                     <div className="form-group">
-                      <label htmlFor>
-                        Polling Agent Type <span>*</span>
+                      <label htmlFor> Polling Agent Type <span>*</span>
                         <i className="fa-solid fa-circle-info" />
                       </label>
                     </div>
                     <div className="form-group-flex">
                       <div className="form-group d-flex gap-2">
-                        <input
-                          type="radio"
-                          id="tra"
-                          name="fav_language"
-                          defaultValue="Trained"
-                        />
+                        <input type="radio" id="tra" name="fav_language" defaultValue="Trained" />
                         <label htmlFor="tra">Trained </label>
                       </div>
                       <div className="form-group d-flex gap-2">
-                        <input
-                          type="radio"
-                          id="vin"
-                          name="fav_language"
-                          defaultValue="VIN"
-                        />
+                        <input type="radio" id="vin" name="fav_language" defaultValue="VIN"/>
                         <label htmlFor="vin">VIN number</label>
                       </div>
                     </div>

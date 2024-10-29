@@ -428,7 +428,7 @@ img.regis-shape1 {position:absolute; top:-28px; animation:rightToLeft 4s infinit
 
 .sidebar_sec_lft_menu ul li ul li a {padding:5px 10px !important; font-size:14px; color:#0c7a89;}
 .sidebar_sec_lft_menu ul li ul li a i {font-size:13px;}
-.sidebar_sec_lft_menu ul li a {width:100%; position:relative; font-weight:600; font-size:16px; color:#213168; display:block; transition:all 0.5s ease-in-out; padding:10px; padding:10px; background-color:#ebebeb;height: 40px !important;}
+.sidebar_sec_lft_menu ul li a {width:100%; position:relative; font-weight:600; font-size:16px; color:#213168; transition:all 0.5s ease-in-out; padding:10px; background-color:#ebebeb;height: 40px !important;}
 .sidebar_sec_lft_menu ul li a i {padding-right:5px; font-size:14px;}
 .sidebar_sec_lft_menu ul li a:hover {background-color:#0c7a89 !important; color:#fff;}
 .sidebar_sec_lft_menu ul li a.active {background-color:#0c7a89 !important; color:#fff;}
@@ -584,7 +584,7 @@ footer {background:#fff; box-shadow:0 0 15px #dfdfdf; padding-top:25px;}
 .ele-party-bx ul li.active::before {opacity:1; color:green;}
 .ed-pr-bx {background:#fff; box-shadow:0 0 15px #e3e3e3; padding:25px; position:relative;}
 .ed-pr-img img {border-radius:50%;}
-.ed-pr-img {position:relative; width:100px; height:100px; margin:auto; border-radius:50%; background:#26a9e0; padding:5px;}
+.ed-pr-img {position:relative; width:100px; margin:auto; border-radius:50%; background:#26a9e0; padding:5px;}
 .ed-pr-img:before {position:absolute; content:''; width:15px; height:15px; background:#05e105; bottom:10px; right:9px; border-radius:50%; border:2px solid #545454;}
 .ed-pr-title {text-align:center; margin-top:15px; border-top:1px solid #dfdfdf; padding-top:10px;}
 .ed-pr-title h4 {margin:0; color:#008bc5;}
@@ -974,6 +974,22 @@ margin: 0;
     background: #ffffff;
 }
 .img-bx img{width: 50px;}
+
+.btn-toggle-status {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .button-publish {
+    background-color: green;
+  }
+  
+  .button-not-publish {
+    background-color: red;
+  }
 
 
 @media only screen and (min-width: 1601px) and (max-width:4000px) {}

@@ -2,7 +2,7 @@ import React from 'react'
 import InnerBanner from '../../../components/Common/inner_banner'
 import ContactAddress from '../../../components/contact/contact_address';
 import ContactForm from '../../../components/contact/contact_form';
-import { PostData, axiosGet } from "../../../utils/ApiCalls";
+import { axiosGet } from "../../../utils/ApiCalls";
 
 
 const Index = ({ data }) => {
