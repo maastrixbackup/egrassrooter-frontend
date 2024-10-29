@@ -15,9 +15,7 @@ const Index = () => {
             setLoading(true);
             const res = await PostData("forgot-password", data);
             toast.success(res.message);
-       
-
-            } catch (error) {
+        } catch (error) {
             toast.error(error.message || "Something went wrong");
         } finally {
             setLoading(false);
@@ -50,7 +48,7 @@ const Index = () => {
                                                     placeholder="Enter your email"
                                                     className="form-control"
                                                     value={email_id}
-                                                    onChange={(e) => setEmail(e.target.value)}
+                                                    onChange={(e) => (e.target.value)}
                                                     required
                                                 />
                                             </div>
