@@ -51,7 +51,7 @@ const Add = () => {
         const verifyTokenResponse = await PostData("verify-token", { token: userId }, "", `Bearer ${tokenData}`);
         if (verifyTokenResponse.status === 200) {
           const res = await PostData(`event-add`, data, "", `Bearer ${tokenData}`);
-          if (res.success == true) {
+          if (res) {
             toast.success(res.message);
             router.push("/dashboard/event");
           } else {
