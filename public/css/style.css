@@ -553,7 +553,7 @@ footer {background:#fff; box-shadow:0 0 15px #dfdfdf; padding-top:25px;}
 .ele-cl-bx ul {display:flex;}
 .ele-cl-bx ul li {width:60px; height:50px; background:#26a9e0; display:inline-flex; align-items:center; justify-content:center; font-weight:700; color:#fff; flex:1 1 auto; word-break:break-all; text-align:center; line-height:20px; padding:5px; font-size:12px;}
 .election-result-bx {margin-top:20px;}
-.ele-cl-bx span {color:gray; font-style:italic; font-size:13px;}
+.ele-cl-bx span {color:gray; font-style:italic; font-size:13px; font-weight: bold;}
 .ele-show-gh-bx {margin-top:25px;}
 .ele-graph-bx {background:#fff; box-shadow:0 0 15px #d1d1d1; height:100%;}
 .el-gh-title * {margin:0;}
@@ -960,6 +960,13 @@ margin: 0;
     margin-right: 5px;
 }
 
+#container .highcharts-container {
+    height: 450px !important;
+}
+
+/* .partyname span{
+    margin-top: 75px;
+} */
 
 .new-srl-bx .card img {
     display: block;

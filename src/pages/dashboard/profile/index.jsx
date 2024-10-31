@@ -95,7 +95,7 @@ const Index = () => {
             const response = await PostData("updateprofile", editProfile, "", `Bearer ${tokenData}`);
             if (response.success == true) {
                 toast.success("Profile updated successfully!");
-                setProfile(editProfile); // Update local profile state
+                router.push("/dashboard/profile");
             } else {
                 toast.error("Failed to update profile.");
             }
@@ -131,7 +131,7 @@ const Index = () => {
                                             <a href="#"><i class="fal fa-phone-alt"></i><span>{profile.telephone || "021245869"}</span></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>Germany</span></a>
+                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>{profile.state}</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -283,7 +283,7 @@ const Index = () => {
                                                         <div class="col-lg-12">
                                                             <div class="form-group">
                                                                 <label for="">Political Party Affiliation: (Election official)</label>
-                                                                <select type="text" class="form-control" value={editProfile.political_party} onChange={handleChange} required>
+                                                                <select type="text" name="political_party" class="form-control" value={editProfile.political_party} onChange={handleChange} required>
                                                                     <option value="">Select Political Party</option>
                                                                     {editProfile?.allparty?.map((party, i) => (
                                                                         <option key={i} value={party.id}>
