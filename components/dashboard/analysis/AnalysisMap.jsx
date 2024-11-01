@@ -11,7 +11,7 @@ const center = {
     lng: -122.4194 // Longitude for San Francisco (example)
 };
 
-const PlanMap = ({ data }) => {
+const AnalysisMap = ({ data }) => {
     return (
         <div class="target_map_frame">
             <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
@@ -23,4 +23,4 @@ const PlanMap = ({ data }) => {
     );
 };
 
-export default PlanMap;
+export default AnalysisMap;

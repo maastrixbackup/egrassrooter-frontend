@@ -55,12 +55,12 @@ const Index = () => {
                                     <h3>Geo Political Zones</h3>
                                     <div class="target_select">
                                         <select class="js-select2" multiple="multiple">
-                                            <option value="1" data-badge=""> NORTH CENTRAL </option>
-                                            <option value="2" data-badge=""> NORTH EAST </option>
-                                            <option value="3" data-badge=""> NORTH WEST </option>
-                                            <option value="4" data-badge=""> SOUTH EAST </option>
-                                            <option value="5" data-badge=""> SOUTH SOUTH </option>
-                                            <option value="6" data-badge=""> SOUTH WEST </option>
+                                            <option value="NORTH CENTRAL" data-badge=""> NORTH CENTRAL </option>
+                                            <option value="NORTH EAST" data-badge=""> NORTH EAST </option>
+                                            <option value="NORTH WEST" data-badge=""> NORTH WEST </option>
+                                            <option value="SOUTH EAST" data-badge=""> SOUTH EAST </option>
+                                            <option value="SOUTH SOUTH" data-badge=""> SOUTH SOUTH </option>
+                                            <option value="SOUTH WEST" data-badge=""> SOUTH WEST </option>
                                         </select>
                                     </div>
                                 </div>

@@ -1,7 +1,12 @@
+import React, { useEffect, useState } from "react";
 import 'select2/dist/css/select2.min.css';
 import 'select2/dist/js/select2.min.js';
-import React, { useEffect } from 'react';
+import AnalysisMap from "../../../../components/dashboard/analysis/AnalysisMap";
 import $ from 'jquery';
+import Image from "next/image";
+import { axiosGet, PostData } from "../../../../utils/ApiCalls";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
     useEffect(() => {
@@ -9,14 +14,36 @@ const Index = () => {
             $('.js-select2').select2();
         }
     }, []);
+
+    const [allMemberTeamLists, setAllMemberTeamList] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const fetchElections = async () => {
+            try {
+                const response = await axiosGet("all-member-team", `Bearer ${token}`);
+                if (response) {
+                    setAllMemberTeamList(response);
+                } else {
+                    toast.error("Failed to fetch election data.");
+                }
+            } catch (error) {
+                console.error("Error fetching election data:", error);
+                toast.error("An error occurred while fetching election data.");
+            }
+        };
+
+        fetchElections();
+    }, []);
+
     return (
         <div class="col-lg-12 col md-12">
             <div class="target-map">
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
-                        <h2>Geo Political Analytics Filter</h2>
+                        <h2>Geo Political Filter</h2>
                         <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <img src="/images/filter.png" alt="" />
+                            <Image src="/images/filter.png" alt="filter" width={100} height={100} />
                         </button>
                     </div>
                 </div>
@@ -25,15 +52,15 @@ const Index = () => {
                         <div class="row">
                             <div class="col-lg-8 mx-auto text-center">
                                 <div class="geo_main_title">
-                                    <h3>GEO POLITICAL ZONES</h3>
+                                    <h3>Geo Political Zones</h3>
                                     <div class="target_select">
                                         <select class="js-select2" multiple="multiple">
-                                            <option value="O1" data-badge=""> NORTH CENTRAL </option>
-                                            <option value="O2" data-badge=""> NORTH EAST </option>
-                                            <option value="O3" data-badge=""> NORTH WEST </option>
-                                            <option value="O4" data-badge=""> SOUTH EAST </option>
-                                            <option value="O5" data-badge=""> SOUTH SOUTH </option>
-                                            <option value="O6" data-badge=""> SOUTH WEST </option>
+                                            <option value="NORTH CENTRAL" data-badge=""> NORTH CENTRAL </option>
+                                            <option value="NORTH EAST" data-badge=""> NORTH EAST </option>
+                                            <option value="NORTH WEST" data-badge=""> NORTH WEST </option>
+                                            <option value="SOUTH EAST" data-badge=""> SOUTH EAST </option>
+                                            <option value="SOUTH SOUTH" data-badge=""> SOUTH SOUTH </option>
+                                            <option value="SOUTH WEST" data-badge=""> SOUTH WEST </option>
                                         </select>
                                     </div>
                                 </div>
@@ -61,7 +88,7 @@ const Index = () => {
                                                             <li>
                                                                 <input type="checkbox" id="state3" />
                                                                 <label for="state3"><span>KOGI</span></label>
-                                                            </li>                                               
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -89,7 +116,7 @@ const Index = () => {
                                                             <li>
                                                                 <input type="checkbox" id="state3" />
                                                                 <label for="state3"><span>KOGI</span></label>
-                                                            </li>                                                            
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -117,7 +144,7 @@ const Index = () => {
                                                             <li>
                                                                 <input type="checkbox" id="state3" />
                                                                 <label for="state3"><span>KOGI</span></label>
-                                                            </li>                                                            
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -145,7 +172,7 @@ const Index = () => {
                                                             <li>
                                                                 <input type="checkbox" id="state3" />
                                                                 <label for="state3"><span>KOGI</span></label>
-                                                            </li>                                                           
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -158,9 +185,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            {/* <div class="target_map_frame">
-                <img src="/images/target_map.jpg" alt="" />
-            </div> */}
+            <AnalysisMap />
         </div>
     );
 };
