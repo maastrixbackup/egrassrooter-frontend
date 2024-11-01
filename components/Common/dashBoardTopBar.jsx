@@ -77,10 +77,10 @@ const DashBoardTopBar = ({ data }) => {
             <div className="topbar_sec_rgt">
               <a href>
                 <div className="topbar_sec_rgt_fig">
-                  <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Candidate" width={500} height={500} />
+                  {/* <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Candidate" width={500} height={500} /> */}
                 </div>
               </a>
-              <h3>{profile.profile_name || "Kesiena Manager"}</h3>
+              {/* <h3>{profile.profile_name || "Kesiena Manager"}</h3> */}
             </div>
           </div>
         </div>
