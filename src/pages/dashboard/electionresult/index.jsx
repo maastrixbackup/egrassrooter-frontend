@@ -16,6 +16,7 @@ const Index = () => {
   });
   const [selectedElectionType, setSelectedElectionType] = useState("");
   const [electionResultsData, setElectionresultsData] = useState(null);
+  
   const [getdata, setData] = useState({
     election_type: "",
     state_id: "",
@@ -156,7 +157,9 @@ const Index = () => {
         <div className="ele-show-gh-bx">
           <div className="row">
             <div className="col-lg-6">
-              <EleCountryMap resultsData={electionResultsData} />
+              <EleCountryMap resultsData={electionResultsData} state={'ng-on'} 
+                // state={getdata.state_id}
+              />
             </div>
             <div className="col-lg-6">
               <EleCountryMapResult resultsData={electionResultsData} />
