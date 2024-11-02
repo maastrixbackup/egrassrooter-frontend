@@ -18,36 +18,18 @@ const Index = () => {
                 const userId = localStorage.getItem("userId");
 
                 if (tokenData && userId) {
-                    const data = { token: userId };
-                    try {
-                        const verifyTokenResponse = await PostData("verify-token", data, "", `Bearer ${tokenData}`);
-                        if (verifyTokenResponse.status === 200) {
-                            const res = await axiosGet("getprofile", `Bearer ${tokenData}`);
-                            if (res.profile_data) {
-                                setProfile(res.profile_data || {});
-                            } else {
-                                toast.error("Failed to fetch profile data.");
-                            }
+                    const res = await axiosGet("getprofile", `Bearer ${tokenData}`);
+                    if (res.profile_data) {
+                        setProfile(res.profile_data || {});
+                    } else {
+                        toast.error("Failed to fetch profile data.");
+                    }
 
-                            const result = await axiosGet(`editprofile/${userId}`, `Bearer ${tokenData}`);
-                            if (result.profile) {
-                                setEditProfile(result.profile || {});
-                            } else {
-                                toast.error("Failed to fetch edit profile data.");
-                            }
-                        } else {
-                            toast.error("Token verification failed. Please login again.");
-                            localStorage.removeItem("token");
-                            localStorage.removeItem("userId");
-                            router.push("/login");
-                        }
-                    } catch (error) {
-                        toast.error("An error occurred. Please login again.");
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("userId");
-                        router.push("/login");
-                    } finally {
-                        setLoading(false);
+                    const result = await axiosGet(`editprofile/${userId}`, `Bearer ${tokenData}`);
+                    if (result.profile) {
+                        setEditProfile(result.profile || {});
+                    } else {
+                        toast.error("Failed to fetch edit profile data.");
                     }
                 } else {
                     toast.error("No token or user ID found. Please login.");
@@ -82,8 +64,11 @@ const Index = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEditProfile((prev) => ({ ...prev, [name]: value }));
+        const { name, value, files } = e.target;
+        setEditProfile((prev) => ({
+            ...prev,
+            [name]: files && files.length > 0 ? files[0] : value,
+        }));
     };
 
     const handleUpdate = async (e) => {
@@ -116,10 +101,10 @@ const Index = () => {
                         <div class="col-lg-4">
                             <div class="ed-pr-bx">
                                 <div class="ed-pr-img">
-                                    <Image src={profile.candidate_image || "/images/avtar.jpg"} alt="Candidate" width={500} height={500} />
+                                    <Image src={profile.profile_photo || "/images/avtar.jpg"} alt="Candidate" width={500} height={500} />
                                 </div>
                                 <div class="ed-pr-title">
-                                    <h4>{profile.candidate_name || "Spencer Robin"}</h4>
+                                    <h4>{profile.profile_name || "Spencer Robin"}</h4>
                                     <span class="d-block">{profile.political_party || "Party Member"}</span>
                                 </div>
                                 <div class="ed-pr-info">
@@ -191,7 +176,7 @@ const Index = () => {
                                                     <div className="row">
                                                         <div className="col-lg-12">
                                                             <div className="file-form">
-                                                                <label className="form__container" id="upload-container">Choose or Drag & Drop File</label>
+                                                                {/* <label className="form__container" id="upload-container">Choose or Drag & Drop File</label> */}
                                                                 <input name="profile_photo" id="upload-files" type="file" accept="image/*" multiple="multiple" onChange={handleChange}/>
                                                             </div>
                                                         </div>

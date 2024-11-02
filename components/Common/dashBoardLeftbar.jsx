@@ -1,16 +1,37 @@
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import React from "react";
 import dynamic from 'next/dynamic';
 import { Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Image from "next/image";
+import { axiosGet, PostData } from "../../utils/ApiCalls";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sidebar = dynamic(() => import("react-pro-sidebar").then(mod => mod.Sidebar), { ssr: false });
 
 const DashboardLeftbar = () => {
-    
+
     const router = useRouter();
-    
+
+    const [profile, setProfile] = useState({});
+
+    useEffect(() => {
+        const fetchProfile = async () => {
+            if (typeof window !== "undefined") {
+                const tokenData = localStorage.getItem("token");
+                const res = await axiosGet("getprofile", `Bearer ${tokenData}`);
+                if (res.profile_data) {
+                    setProfile(res.profile_data || {});
+                } else {
+                    toast.error("Failed to fetch profile data.");
+                }
+            }
+        };
+        fetchProfile();
+    }, [router]);
+
     const handleSignOut = () => {
         localStorage.clear();
         signOut();
@@ -36,19 +57,17 @@ const DashboardLeftbar = () => {
     return (
         <div className="sidebar_sec_lft">
             <div className="sidebar_sec_lft_usr">
-                <Link href="#">
-                    <span>
-                        <img src="/images/secd-logo.png" alt="SECD Logo" />
-                    </span>
-                </Link>
-                <Link href="#">
+                <p>
+                    <Image src={profile.candidate_image || "/images/secd-logo.png"} alt="Candidate" width={500} height={500} />
+                </p>
+                <Link href="/dashboard/profile">
                     <p>
-                        <img src="/images/professional-mens-hairstyles-combed-min.jpg" alt="Profile" />
+                        <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Profile" width={500} height={500} />
                     </p>
                 </Link>
             </div>
             <div className="sidebar_sec_lft_para">
-                <p>Welcome, OsitaForSenate</p>
+                <p>Welcome, {profile.profile_name || "OsitaForSenate"}</p>
             </div>
             <div className="sidebar_sec_lft_menu">
                 <Sidebar>
@@ -91,10 +110,10 @@ const DashboardLeftbar = () => {
                             {renderMenuItem("/dashboard/event", "Manage Event", <i className="fa-solid fa-envelope"></i>)}
                             {renderMenuItem("/dashboard/blog", "Manage Blog", <i className="fa-solid fa-envelope"></i>)}
                         </SubMenu>
-                        <MenuItem icon={<i className="fa-solid fa-house"></i>}className={router.pathname === '/' ? 'active' : ''}><Link href="/">Home</Link></MenuItem>
+                        <MenuItem icon={<i className="fa-solid fa-house"></i>} className={router.pathname === '/' ? 'active' : ''}><Link href="/">Home</Link></MenuItem>
                         {renderMenuItem("/dashboard/profile", "My Profile", <i className="fa-solid fa-user"></i>)}
-                        <MenuItem 
-                            icon={<i className="fa-solid fa-right-from-bracket"></i>} 
+                        <MenuItem
+                            icon={<i className="fa-solid fa-right-from-bracket"></i>}
                             onClick={handleSignOut}
                         >
                             Sign Out
