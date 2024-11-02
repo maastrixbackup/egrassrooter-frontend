@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 const Index = () => {
     const [profile, setProfile] = useState({});
     const [editProfile, setEditProfile] = useState({});
-    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -88,10 +87,6 @@ const Index = () => {
             toast.error("An error occurred while updating profile.");
         }
     };
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div class="col-lg-12 col md-12">

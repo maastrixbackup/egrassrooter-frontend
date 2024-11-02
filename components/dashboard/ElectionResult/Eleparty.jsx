@@ -26,8 +26,7 @@ const Eleparty = ({ data, resultsData }) => {
                   </div>
                   <ul>
                     {data.statedata.map((state, i) => {
-                      // Check if the current state.id is in the party's won states (sid)
-                      const isActive = partyWins.some((win) => win.sid === state.id);
+                      const isActive = partyWins.some((win) => win.staid === state.id);
 
                       return (
                         <li key={i} className={isActive ? "active" : ""}>

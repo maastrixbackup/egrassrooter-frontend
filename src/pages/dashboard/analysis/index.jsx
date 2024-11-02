@@ -114,11 +114,11 @@ const Index = () => {
 
     const puWardChange = async (e) => {
         const tokenData = localStorage.getItem("token");
-        const checkboxes = document.querySelectorAll('input[name="watd_id[]"]:checked');
+        const checkboxes = document.querySelectorAll('input[name="ward_id[]"]:checked');
         const selectedWards = Array.from(checkboxes).map(checkbox => checkbox.value);
 
         const formattedWard = selectedWards.reduce((acc, id, index) => {
-            acc[`watd_id[${index}]`] = id;
+            acc[`ward_id[${index}]`] = id;
             return acc;
         }, {});
 
@@ -250,7 +250,7 @@ const Index = () => {
                                                             <ul>
                                                                 {wards.map((ward) => (
                                                                     <li key={ward.id}>
-                                                                        <input type="checkbox" name="watd_id[]" value={ward.id} id={`ward-${ward.id}`} onChange={(e) => puWardChange(e, ward)} />
+                                                                        <input type="checkbox" name="ward_id[]" value={ward.id} id={`ward-${ward.id}`} onChange={(e) => puWardChange(e, ward)} />
                                                                         <label htmlFor={`ward-${ward.id}`}>
                                                                             <span>{ward.name}</span>
                                                                         </label>
