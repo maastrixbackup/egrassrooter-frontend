@@ -23,7 +23,6 @@ const Index = () => {
     election_year: "",
   });
 
-  // Fetch initial data for election options
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchElections = async () => {
@@ -43,7 +42,6 @@ const Index = () => {
     fetchElections();
   }, []);
 
-  // Fetch election results on getdata change (triggered only when `getdata` is complete)
   useEffect(() => {
     if (getdata.election_type && getdata.election_year) {
       handleSubmit();
