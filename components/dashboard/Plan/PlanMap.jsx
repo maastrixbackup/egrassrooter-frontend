@@ -76,14 +76,8 @@ function MyComponent({ data }) {
   };
 
   return isLoaded ? (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={7}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
+    <div style={{ width: "100%", height: "100vh", marginTop: "3%" }}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={7} onLoad={onLoad} onUnmount={onUnmount} >
         {data?.team && showTeamMarkets()}
         {data?.member && showMemberMarkets()}
       </GoogleMap>

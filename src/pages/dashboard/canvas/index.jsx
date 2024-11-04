@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ElectionResult from "../../../../components/dashboard/ElectionResult/ElectionResult";
-import EleCountryMapResult from "../../../../components/dashboard/ElectionResult/EleCountryMapResult";
-import EleCountryMap from "../../../../components/dashboard/ElectionResult/EleCountryMap";
-import Eleparty from "../../../../components/dashboard/ElectionResult/Eleparty";
-import ElePartyResultTable from "../../../../components/dashboard/ElectionResult/ElePartyResultTable";
+import EleCanvasMap from "../../../../components/dashboard/Canvas/EleCanvasMap";
 import { axiosGet, PostData } from "../../../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -91,7 +87,7 @@ const Index = () => {
               <a href="user_dashboard.html">Dashboard</a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
-              Election Result
+              Canvas Result
             </li>
           </ol>
         </nav>
@@ -151,19 +147,11 @@ const Index = () => {
             </div>
           </form>
         </div>
-        <ElectionResult data={electionresults} resultsData={electionResultsData} />
         <div className="ele-show-gh-bx">
           <div className="row">
-            <div className="col-lg-6">
-              <EleCountryMap resultsData={electionResultsData} />
-            </div>
-            <div className="col-lg-6">
-              <EleCountryMapResult resultsData={electionResultsData} />
-            </div>
+              <EleCanvasMap resultsData={electionResultsData} />
           </div>
         </div>
-        <Eleparty data={electionresults} resultsData={electionResultsData} />
-        <ElePartyResultTable data={electionresults} resultsData={electionResultsData} />
       </div>
     </>
   );

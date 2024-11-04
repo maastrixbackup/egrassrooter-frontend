@@ -34,7 +34,6 @@ const Index = () => {
                     toast.error("No token or user ID found. Please login.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("userId");
-                    router.push("/login");
                 }
             }
         };

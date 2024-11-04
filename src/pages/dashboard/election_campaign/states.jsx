@@ -30,7 +30,6 @@ const States = () => {
 						toast.error("An error occurred. Please login again.");
 						localStorage.removeItem("token");
 						localStorage.removeItem("userId");
-						router.push("/login");
 					} finally {
 						setLoading(false); // Set loading to false when done
 					}
@@ -38,7 +37,6 @@ const States = () => {
 					toast.error("No token or user ID found. Please login.");
 					localStorage.removeItem("token");
 					localStorage.removeItem("userId");
-					router.push("/login");
 				}
 			}
 		};

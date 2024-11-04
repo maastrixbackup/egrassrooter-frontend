@@ -16,7 +16,6 @@ const Index = () => {
   const [allPulList, setPulList] = useState({});
   const [data, setData] = useState({});
   const [allPulDataList, setPulDataList] = useState({});
-  setPulDataList;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -36,6 +35,7 @@ const Index = () => {
         const response = await axiosGet("all-member-team", `Bearer ${token}`);
         if (response) {
           setAllMemberTeamList(response);
+          setData(response);
         } else {
           toast.error("Failed to fetch election data.");
         }
@@ -51,22 +51,16 @@ const Index = () => {
   const stateZoneChange = async (e) => {
     const selectedZones = $(e.target).val();
     const tokenData = localStorage.getItem("token");
-
     const formattedZones = selectedZones.reduce((acc, zone, index) => {
       acc[`zones[${index}]`] = zone;
       return acc;
     }, {});
 
     try {
-      const response = await PostData(
-        "zone-team-member",
-        formattedZones,
-        "",
-        `Bearer ${tokenData}`
-      );
+      const response = await PostData("zone-team-member", formattedZones, "", `Bearer ${tokenData}` );
       if (response.success === true) {
         setZoneList(response.state);
-        setData(response)
+        setData(response);
       } else {
         toast.error("Failed to update zones.");
       }
@@ -78,9 +72,7 @@ const Index = () => {
 
   const lgaStateChange = async (e) => {
     const tokenData = localStorage.getItem("token");
-    const checkboxes = document.querySelectorAll(
-      'input[name="state[]"]:checked'
-    );
+    const checkboxes = document.querySelectorAll('input[name="state[]"]:checked');
     const selectedStates = Array.from(checkboxes).map(
       (checkbox) => checkbox.value
     );
@@ -91,15 +83,10 @@ const Index = () => {
     }, {});
 
     try {
-      const response = await PostData(
-        "state-member-team",
-        formattedState,
-        "",
-        `Bearer ${tokenData}`
-      );
+      const response = await PostData("state-member-team", formattedState, "", `Bearer ${tokenData}`);
       if (response) {
         setStateList(response.LGAs);
-        setData(response)
+        setData(response);
       } else {
         toast.error("Failed to update zones.");
       }
@@ -110,9 +97,7 @@ const Index = () => {
 
   const wardLgaseChange = async (e) => {
     const tokenData = localStorage.getItem("token");
-    const checkboxes = document.querySelectorAll(
-      'input[name="lga_ids[]"]:checked'
-    );
+    const checkboxes = document.querySelectorAll('input[name="lga_ids[]"]:checked');
     const selectedLgas = Array.from(checkboxes).map(
       (checkbox) => checkbox.value
     );
@@ -123,15 +108,10 @@ const Index = () => {
     }, {});
 
     try {
-      const response = await PostData(
-        "lga-member-team",
-        formattedLga,
-        "",
-        `Bearer ${tokenData}`
-      );
+      const response = await PostData("lga-member-team", formattedLga, "", `Bearer ${tokenData}`);
       if (response) {
         setWardList(response.ward);
-        setData(response)
+        setData(response);
       } else {
         toast.error("Failed to update zones.");
       }
@@ -142,9 +122,7 @@ const Index = () => {
 
   const puWardChange = async (e) => {
     const tokenData = localStorage.getItem("token");
-    const checkboxes = document.querySelectorAll(
-      'input[name="ward_ids[]"]:checked'
-    );
+    const checkboxes = document.querySelectorAll('input[name="ward_ids[]"]:checked');
     const selectedWards = Array.from(checkboxes).map(
       (checkbox) => checkbox.value
     );
@@ -155,15 +133,10 @@ const Index = () => {
     }, {});
 
     try {
-      const response = await PostData(
-        "ward-member-team",
-        formattedWard,
-        "",
-        `Bearer ${tokenData}`
-      );
+      const response = await PostData("ward-member-team", formattedWard, "", `Bearer ${tokenData}`);
       if (response) {
         setPulList(response.pollingUnit);
-        setData(response)
+        setData(response);
       } else {
         toast.error("Failed to update zones.");
       }
@@ -174,9 +147,7 @@ const Index = () => {
 
   const pollingUnitChange = async (e) => {
     const tokenData = localStorage.getItem("token");
-    const checkboxes = document.querySelectorAll(
-      'input[name="poll_ids[]"]:checked'
-    );
+    const checkboxes = document.querySelectorAll('input[name="poll_ids[]"]:checked');
     const selectedPuls = Array.from(checkboxes).map(
       (checkbox) => checkbox.value
     );
@@ -187,14 +158,10 @@ const Index = () => {
     }, {});
 
     try {
-      const response = await PostData(
-        "polling-unit-member-team",
-        formattedPullu,
-        "",
-        `Bearer ${tokenData}`
-      );
+      const response = await PostData("polling-unit-member-team", formattedPullu, "", `Bearer ${tokenData}`);
       if (response) {
         setPulDataList(response);
+        setData(response);
       } else {
         toast.error("Failed to update zones.");
       }
@@ -209,20 +176,8 @@ const Index = () => {
         <div class="accordion" id="accordionExample">
           <div class="accordion-item">
             <h2>Geo Political Filter</h2>
-            <button
-              class="collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              <Image
-                src="/images/filter.png"
-                alt="filter"
-                width={100}
-                height={100}
-              />
+            <button class="collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"  aria-controls="collapseOne" >
+              <Image src="/images/filter.png" alt="filter" width={100} height={100} />
             </button>
           </div>
         </div>
@@ -238,30 +193,12 @@ const Index = () => {
                   <h3>Geo Political Zones</h3>
                   <div class="target_select">
                     <select class="js-select2" multiple="multiple">
-                      <option value="NORTH CENTRAL" data-badge="">
-                        {" "}
-                        NORTH CENTRAL{" "}
-                      </option>
-                      <option value="NORTH EAST" data-badge="">
-                        {" "}
-                        NORTH EAST{" "}
-                      </option>
-                      <option value="NORTH WEST" data-badge="">
-                        {" "}
-                        NORTH WEST{" "}
-                      </option>
-                      <option value="SOUTH EAST" data-badge="">
-                        {" "}
-                        SOUTH EAST{" "}
-                      </option>
-                      <option value="SOUTH SOUTH" data-badge="">
-                        {" "}
-                        SOUTH SOUTH{" "}
-                      </option>
-                      <option value="SOUTH WEST" data-badge="">
-                        {" "}
-                        SOUTH WEST{" "}
-                      </option>
+                      <option value="NORTH CENTRAL" data-badge=""> {" "} NORTH CENTRAL{" "} </option>
+                      <option value="NORTH EAST" data-badge=""> {" "} NORTH EAST{" "} </option>
+                      <option value="NORTH WEST" data-badge="">{" "}NORTH WEST{" "} </option>
+                      <option value="SOUTH EAST" data-badge=""> {" "} SOUTH EAST{" "} </option>
+                      <option value="SOUTH SOUTH" data-badge=""> {" "} SOUTH SOUTH{" "} </option>
+                      <option value="SOUTH WEST" data-badge=""> {" "} SOUTH WEST{" "} </option>
                     </select>
                   </div>
                 </div>
@@ -281,47 +218,9 @@ const Index = () => {
                               <ul>
                                 {states.map((state) => (
                                   <li key={state.sId}>
-                                    <input
-                                      type="checkbox"
-                                      name="state[]"
-                                      value={state.sId}
-                                      id={`state-${state.sId}`}
-                                      onChange={(e) => lgaStateChange(e, state)}
-                                    />
+                                    <input type="checkbox" name="state[]" value={state.sId} id={`state-${state.sId}`} onChange={(e) => lgaStateChange(e, state)} />
                                     <label htmlFor={`state-${state.sId}`}>
                                       <span>{state.name}</span>
-                                    </label>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="tar_check_sp">
-                      <div class="state_list_title">
-                        <h3>Ward List</h3>
-                      </div>
-                      <div class="target_scroll">
-                        {Object.entries(allStateList).map(([state, lgas]) => (
-                          <div className="tar_state_list" key={state}>
-                            <h4>{state}</h4>
-                            <div className="tar_check tar_small">
-                              <ul>
-                                {lgas.map((lga) => (
-                                  <li key={lga.id}>
-                                    <input
-                                      type="checkbox"
-                                      name="lga_ids[]"
-                                      value={lga.id}
-                                      id={`lga-${lga.id}`}
-                                      onChange={(e) => wardLgaseChange(e, lga)}
-                                    />
-                                    <label htmlFor={`lga-${lga.id}`}>
-                                      <span>{lga.name}</span>
                                     </label>
                                   </li>
                                 ))}
@@ -338,6 +237,32 @@ const Index = () => {
                         <h3>LGAs List</h3>
                       </div>
                       <div class="target_scroll">
+                        {Object.entries(allStateList).map(([state, lgas]) => (
+                          <div className="tar_state_list" key={state}>
+                            <h4>{state}</h4>
+                            <div className="tar_check tar_small">
+                              <ul>
+                                {lgas.map((lga) => (
+                                  <li key={lga.id}>
+                                    <input type="checkbox"  name="lga_ids[]" value={lga.id} id={`lga-${lga.id}`} onChange={(e) => wardLgaseChange(e, lga)} />
+                                    <label htmlFor={`lga-${lga.id}`}>
+                                      <span>{lga.name}</span>
+                                    </label>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <div class="tar_check_sp">
+                      <div class="state_list_title">
+                        <h3>Ward List</h3>
+                      </div>
+                      <div class="target_scroll">
                         {Object.entries(allWardList).map(([lga, wards]) => (
                           <div className="tar_state_list" key={lga}>
                             <h4>{lga}</h4>
@@ -345,13 +270,7 @@ const Index = () => {
                               <ul>
                                 {wards.map((ward) => (
                                   <li key={ward.id}>
-                                    <input
-                                      type="checkbox"
-                                      name="ward_ids[]"
-                                      value={ward.id}
-                                      id={`ward-${ward.id}`}
-                                      onChange={(e) => puWardChange(e, ward)}
-                                    />
+                                    <input type="checkbox" name="ward_ids[]" value={ward.id} id={`ward-${ward.id}`} onChange={(e) => puWardChange(e, ward)} />
                                     <label htmlFor={`ward-${ward.id}`}>
                                       <span>{ward.name}</span>
                                     </label>
@@ -377,15 +296,7 @@ const Index = () => {
                               <ul>
                                 {puls.map((pul) => (
                                   <li key={pul.id}>
-                                    <input
-                                      type="checkbox"
-                                      name="poll_ids[]"
-                                      value={pul.id}
-                                      id={`pul-${pul.id}`}
-                                      onChange={(e) =>
-                                        pollingUnitChange(e, pul)
-                                      }
-                                    />
+                                    <input type="checkbox" name="poll_ids[]" value={pul.id} id={`pul-${pul.id}`} onChange={(e) => pollingUnitChange(e, pul)}/>
                                     <label htmlFor={`pul-${pul.id}`}>
                                       <span>{pul.name}</span>
                                     </label>
@@ -404,15 +315,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-      <PlanMapData
-        allMemberTeamLists={allMemberTeamLists}
-        allZoneList={allZoneList}
-        allStateList={allStateList}
-        allWardList={allWardList}
-        allPulList={allPulList}
-        allPulDataList={allPulDataList}
-        data={data}
-      />
+      <PlanMapData data={data} />
     </div>
   );
 };
