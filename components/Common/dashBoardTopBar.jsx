@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { axiosGet, PostData } from "../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -65,9 +66,9 @@ const DashBoardTopBar = ({ data }) => {
         <div className="row">
           <div className="col-lg-3 col-md-3">
             <div className="topbar_sec_fig">
-              <a href="/dashboard">
+              <Link href="/dashboard">
                 <img src="/images/logo.png" alt />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-lg-6 col-md-6 text-center">
@@ -75,11 +76,9 @@ const DashBoardTopBar = ({ data }) => {
           </div>
           <div className="col-lg-3 col-md-3">
             <div className="topbar_sec_rgt">
-              <a href>
                 <div className="topbar_sec_rgt_fig">
                   <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Candidate" width={500} height={500} />
                 </div>
-              </a>
               <h3>{profile.profile_name || "Kesiena Manager"}</h3>
             </div>
           </div>
