@@ -19,6 +19,7 @@ const NigeriaMap = ({ resultsData }) => {
   const [hoverInfo, setHoverInfo] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
   const [winningParties, setWinningParties] = useState({});
+  const [hoveredStateId, setHoveredStateId] = useState(null); // New state for hovered state ID
 
   useEffect(() => {
     if (resultsData?.allpartyVotes) {
@@ -42,22 +43,17 @@ const NigeriaMap = ({ resultsData }) => {
     if (winningParties[stateId]) {
       setHoverInfo(true);
       setTooltipPosition({ top: e.clientY - 40, left: e.clientX - 200 });
+      setHoveredStateId(stateId); // Update hovered state ID
     } else {
       setHoverInfo(false);
+      setHoveredStateId(null);
     }
   };
 
   return (
     <MapContainer>
-      <VectorMap
-        id="nigeria-map"
-        name="Nigeria"
-        viewBox={ngMap.viewBox}
-        layers={ngMap.layers}
-        onClick={(e) => handleRegionClick(e.target.id)}
-        onMouseMove={handleMouseMove}
-      />
-      {hoverInfo && (
+      <VectorMap id="nigeria-map" name="Nigeria" viewBox={ngMap.viewBox} layers={ngMap.layers} onClick={(e) => handleRegionClick(e.target.id)} onMouseMove={handleMouseMove} />
+      {hoverInfo && hoveredStateId && (
         <div
           className="mapToolTip"
           style={{
@@ -72,7 +68,7 @@ const NigeriaMap = ({ resultsData }) => {
             zIndex: 1000,
           }}
         >
-          <h4 style={{ margin: 0 }}>{winningParties[stateId]?.state}</h4>
+          <h4 style={{ margin: 0 }}>{winningParties[hoveredStateId]?.state}</h4>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
@@ -86,8 +82,8 @@ const NigeriaMap = ({ resultsData }) => {
             </thead>
             <tbody>
               <tr>
-                <td style={{ padding: "5px" }}>{winningParties[stateId]?.party?.party_name || "N/A"}</td>
-                <td style={{ padding: "5px" }}>{winningParties[stateId]?.total_votes || 0}</td>
+                <td style={{ padding: "5px" }}>{winningParties[hoveredStateId]?.party?.party_name || "N/A"}</td>
+                <td style={{ padding: "5px" }}>{winningParties[hoveredStateId]?.total_votes || 0}</td>
               </tr>
             </tbody>
           </table>

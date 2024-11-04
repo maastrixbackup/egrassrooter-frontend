@@ -4,7 +4,7 @@ const EleCountryMapResult = ({ data, resultsData }) => {
   return (
     <>
       <div className="ele-graph-bx">
-        <div className="el-gh-slec">KADUNA</div>
+        <div className="el-gh-slec"><h4>{resultsData.stateid}</h4></div>
         <div className="el-gh-slec-data">
           <ul>
             {resultsData?.allpartyVotes?.map((Data, i) => (
