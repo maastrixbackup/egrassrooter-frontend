@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const Team = ({ teamData }) => {
   return (
@@ -19,9 +20,9 @@ const Team = ({ teamData }) => {
               <div className="team-box wow fadeInRight" data-wow-delay={`${(i + 1) * 0.2}s`}>
                 <div class="cont3">
                   <a href="#">
-                    <img src={team.political_party_logo} alt />
+                    <Image src={team.political_party_logo} alt="abcd" width={500} height={500}/>
                   </a>
-                  <img src={team.candidate_image} alt />
+                  <Image src={team.candidate_image} alt="abcd" width={500} height={500} />
                 </div>
                 <div class="team-cont">
                   <h4>{team.party_owner_name}</h4>

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const About = ({about}) => {
   
@@ -11,9 +12,9 @@ const About = ({about}) => {
           <div className="col-lg-6 col-md-6">
             <div className="about-img wow fadeInLeft" data-wow-delay="0.2s">
               <div className="dot-shape">
-                <img src="/images/about_shape01.png" alt />
+                <Image src="/images/about_shape01.png" alt="Contact" width={500} height={500} />
               </div>
-              <img src={about.about_image} alt />
+              <Image src={about.about_image} alt="Contact" width={500} height={500} />
             </div>
           </div>
           <div className="col-lg-6 col-md-6">

@@ -72,7 +72,7 @@ const Footer = ({ data }) => {
                   <ul>
                     <li>
                       <a href="#">
-                        <img src="/images/maps-and-flags.png" alt="maps" />
+                        <Image src="/images/maps-and-flags.png" alt="maps" width={500} height={500} />
                         <span>
                           {footerData.location_address}
                         </span>
@@ -80,13 +80,13 @@ const Footer = ({ data }) => {
                     </li>
                     <li>
                       <a href="#">
-                        <img src="/images/telephone.png" alt="telephone" />
+                        <Image src="/images/telephone.png" alt="telephone" width={500} height={500} />
                         <span>{footerData.contact_number}</span>
                       </a>
                     </li>
                     <li>
                       <a href="#">
-                        <img src="/images/mail.png" alt="mail" />
+                        <Image src="/images/mail.png" alt="mail" width={500} height={500} />
                         <span>{footerData.mail_id}</span>
                       </a>
                     </li>
