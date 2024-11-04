@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import 'select2/dist/css/select2.min.css';
 import 'select2/dist/js/select2.min.js';
-import AnalysisMap from "../../../../components/dashboard/analysis/AnalysisMap";
+import AnalysisMap from "../../../../components/dashboard/Analysis/AnalysisMap";
 import $ from 'jquery';
 import Image from "next/image";
 import { axiosGet, PostData } from "../../../../utils/ApiCalls";
@@ -14,7 +14,8 @@ const Index = () => {
     const [allStateList, setStateList] = useState({});
     const [allWardList, setWardList] = useState({});
     const [allPulList, setPulList] = useState({});
-    const [allPulDataList, setPulDataList] = useState({}); setPulDataList
+    const [allPulDataList, setPulDataList] = useState({});
+    const [data, setData] = useState({});
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -34,6 +35,7 @@ const Index = () => {
                 const response = await axiosGet("all-analytics-states", `Bearer ${token}`);
                 if (response) {
                     setAllMemberTeamList(response);
+                    setData(response);
                 } else {
                     toast.error("Failed to fetch election data.");
                 }
@@ -59,6 +61,7 @@ const Index = () => {
             const response = await PostData("all-analytics-zone", formattedZones, "", `Bearer ${tokenData}`);
             if (response.success === true) {
                 setZoneList(response.states);
+                setData(response);
             } else {
                 toast.error("Failed to update zones.");
             }
@@ -82,6 +85,7 @@ const Index = () => {
             const response = await PostData("all-analytics-lgas", formattedState, "", `Bearer ${tokenData}`);
             if (response) {
                 setStateList(response.lgaList);
+                setData(response);
             } else {
                 toast.error("Failed to update zones.");
             }
@@ -104,6 +108,7 @@ const Index = () => {
             const response = await PostData("all-analytics-ward", formattedLga, "", `Bearer ${tokenData}`);
             if (response) {
                 setWardList(response.ward_list);
+                setData(response);
             } else {
                 toast.error("Failed to update zones.");
             }
@@ -126,6 +131,7 @@ const Index = () => {
             const response = await PostData("all-analytics-polling-unit", formattedWard, "", `Bearer ${tokenData}`);
             if (response) {
                 setPulList(response.pollingUnit);
+                setData(response);
             } else {
                 toast.error("Failed to update zones.");
             }
@@ -148,6 +154,7 @@ const Index = () => {
             const response = await PostData("polling-unit-member-team", formattedPullu, "", `Bearer ${tokenData}`);
             if (response) {
                 setPulDataList(response.polling_unit);
+                setData(response);
             } else {
                 toast.error("Failed to update zones.");
             }
@@ -305,7 +312,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <AnalysisMap allMemberTeamLists={allMemberTeamLists} allZoneList={allZoneList} allStateList={allStateList} allWardList={allWardList} allPulList={allPulList} allPulDataList={allPulDataList} />
+            <AnalysisMap data={data} />
         </div>
     );
 };

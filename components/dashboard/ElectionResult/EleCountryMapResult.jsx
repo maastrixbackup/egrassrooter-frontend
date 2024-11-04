@@ -4,16 +4,23 @@ const EleCountryMapResult = ({ data, resultsData }) => {
   return (
     <>
       <div className="ele-graph-bx">
-        <div className="el-gh-slec"><h4>{resultsData.stateid}</h4></div>
+        <div className="el-gh-slec">
+          <h4>{resultsData?.stateid || "No State Available"}</h4>
+        </div>
         <div className="el-gh-slec-data">
           <ul>
-            {resultsData?.allpartyVotes?.map((Data, i) => (
-              <li key={i}>
-                <p style={{ backgroundColor: Data.party.color }}>{Data.party.party_name}</p>
-                <p>{Data.total_votes}</p>
-              </li>
-            )) || <li>No party votes available</li>}
-          </ul><br></br>
+            {resultsData?.allpartyVotes?.length > 0 ? (
+              resultsData.allpartyVotes.map((Data, i) => (
+                <li key={i}>
+                  <p style={{ backgroundColor: Data.party.color }}>{Data.party.party_name}</p>
+                  <p>{Data.total_votes}</p>
+                </li>
+              ))
+            ) : (
+              <li>No party votes available</li>
+            )}
+          </ul>
+          <br />
           <div className="el-gh-data-table">
             <table width="100%">
               <tbody>

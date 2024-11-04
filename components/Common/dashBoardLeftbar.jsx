@@ -79,7 +79,7 @@ const DashboardLeftbar = () => {
                             {/* {renderMenuItem("/dashboard/analytics", "Give Feedback", null)} */}
                             {renderMenuItem("/dashboard/feedback", "Feedback List", null)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Analysis </span>}>
-                                {renderMenuItem("/dashboard/analysis/detailed", "Canvassing", null)}
+                                {renderMenuItem("/dashboard/canvas", "Canvassing", null)}
                                 {renderMenuItem("/dashboard/electionresult", "Election", null)}
                             </SubMenu>
                         </SubMenu>
