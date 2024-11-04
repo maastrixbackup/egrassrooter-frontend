@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 const Header = () => {
-  const router = useRouter(); // Hook to access the current route
+  const router = useRouter();
   const [mobileClass, setMobileClass] = useState("");
   const size = useWindowSize();
   const [show, setShow] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (size.width <= 768) {
@@ -18,7 +20,11 @@ const Header = () => {
     }
   }, [size]);
 
-  // Function to check if the current route matches the link href
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setIsLoggedIn(!!userId);
+  }, []);
+
   const isActive = (href) => router.pathname === href;
 
   return (
@@ -54,7 +60,7 @@ const Header = () => {
                   </li>
                   <li>
                     <a href="#">
-                      <i className="fa-brands fa-x-twitter" />
+                      <i className="fab fa-twitter" />
                     </a>
                   </li>
                   <li>
@@ -74,16 +80,12 @@ const Header = () => {
             <div className="flex-box-header">
               <div className="logo">
                 <Link href="/">
-                  <img src="/images/logo.png" alt />
+                  <Image src="/images/logo.png" alt="Logo" width={500} height={500} />
                 </Link>
               </div>
               <div className="menu-bx">
                 <nav id="cssmenu" className={`mid-menu-navbar ${mobileClass}`}>
-                  <div
-                    id="menu-button"
-                    onClick={() => setShow(!show)}
-                    className={show ? "menu-opened" : ""}
-                  ></div>
+                  <div id="menu-button" onClick={() => setShow(!show)} className={show ? "menu-opened" : ""} ></div>
                   <ul style={{ display: show ? "block" : "none" }}>
                     <li className={isActive("/") ? "active" : ""}>
                       <Link href="/">Home</Link>
@@ -92,7 +94,7 @@ const Header = () => {
                       <Link href="/about">About Us</Link>
                     </li>
                     <li className={isActive("/dashboard/electionresult") ? "active" : ""}>
-                      <a href="#">Election</a>
+                      <Link href="/dashboard/electionresult">Election</Link>
                     </li>
                     <li className={isActive("/news") ? "active" : ""}>
                       <Link href="/news">News</Link>
@@ -103,24 +105,27 @@ const Header = () => {
                     <li className={isActive("/donation") ? "active" : ""}>
                       <Link href="/donation">Donate</Link>
                     </li>
-                    <li className="mob-mode">
-                      <a href="#">Login</a>
-                    </li>
-                    <li className="mob-mode">
-                      <a href="#">Register</a>
-                    </li>
                   </ul>
                 </nav>
               </div>
               <div className="top-btn-bx">
-                <Link href="/login" className="btn-one">
-                  <img src="/images/enter.png" alt />
-                  <span>Login</span>
-                </Link>
-                <Link href="/register" className="btn-two">
-                  <img src="/images/edit.png" alt />
-                  <span>Register</span>
-                </Link>
+                {isLoggedIn ? (
+                  <Link href="/dashboard" className="btn-one">
+                    <Image src="/images/enter.png" alt="Enter" width={500} height={500} />
+                    <span>Dashboard</span>
+                  </Link>
+                ) : (
+                  <>
+                    <Link href="/login" className="btn-one">
+                      <Image src="/images/enter.png" alt="Enter" width={500} height={500} />
+                      <span>Login</span>
+                    </Link>
+                    <Link href="/register" className="btn-two">
+                      <Image src="/images/edit.png" alt="Edit" width={500} height={500} />
+                      <span>Register</span>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -145,9 +150,7 @@ function useWindowSize() {
     }
 
     window.addEventListener("resize", handleResize);
-
     handleResize();
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return windowSize;

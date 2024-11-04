@@ -16,6 +16,7 @@ const Index = () => {
   });
   const [selectedElectionType, setSelectedElectionType] = useState("");
   const [electionResultsData, setElectionresultsData] = useState(null);
+  
   const [getdata, setData] = useState({
     election_type: "",
     state_id: "",

@@ -13,7 +13,6 @@ const Eleparty = ({ data, resultsData }) => {
       <div className="ele-wo-bx-sp">
         <div className="row">
           {data?.political_parties?.map((party) => {
-            // Find matching entries for this party in seatwinn
             const partyWins = resultsData?.seatwinn?.filter(
               (winData) => winData.party === party.id
             ) || [];
@@ -26,8 +25,7 @@ const Eleparty = ({ data, resultsData }) => {
                   </div>
                   <ul>
                     {data.statedata.map((state, i) => {
-                      // Check if the current state.id is in the party's won states (sid)
-                      const isActive = partyWins.some((win) => win.sid === state.id);
+                      const isActive = partyWins.some((win) => win.staid === state.id);
 
                       return (
                         <li key={i} className={isActive ? "active" : ""}>

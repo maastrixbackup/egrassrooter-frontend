@@ -58,16 +58,16 @@ const DashboardLeftbar = () => {
         <div className="sidebar_sec_lft">
             <div className="sidebar_sec_lft_usr">
                 <p>
-                    <Image src={profile.candidate_image || "/images/secd-logo.png"} alt="Candidate" width={500} height={500} />
+                    <Image src={profile.political_party_logo || "/images/secd-logo.png"} alt="Candidate" width={500} height={500} />
                 </p>
                 <Link href="/dashboard/profile">
                     <p>
-                        <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Profile" width={500} height={500} />
+                        <Image src={profile.candidate_image || "/images/logo-pic.jpg"} alt="Profile" width={500} height={500} />
                     </p>
                 </Link>
             </div>
             <div className="sidebar_sec_lft_para">
-                <p>Welcome, {profile.profile_name || "OsitaForSenate"}</p>
+                <p>Welcome, {profile.candidate_name || "OsitaForSenate"}</p>
             </div>
             <div className="sidebar_sec_lft_menu">
                 <Sidebar>
@@ -102,7 +102,7 @@ const DashboardLeftbar = () => {
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Twitter</MenuItem>
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Whatsapp</MenuItem>
                             </SubMenu>
-                            {renderMenuItem("/dashboard/bulkemail", "Email & Messaging", null)}
+                            {/* {renderMenuItem("/dashboard/bulkemail", "Email & Messaging", null)} */}
                             {renderMenuItem("/dashboard/pollingagent", "Polling Agents", null)}
                             {renderMenuItem("/dashboard/election_campaign", "Election Campaign", null)}
                         </SubMenu>

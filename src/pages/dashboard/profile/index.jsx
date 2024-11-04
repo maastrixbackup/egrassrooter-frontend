@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 const Index = () => {
     const [profile, setProfile] = useState({});
     const [editProfile, setEditProfile] = useState({});
-    const [loading, setLoading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -89,10 +88,6 @@ const Index = () => {
         }
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <div class="col-lg-12 col md-12">
             <div class="sidebar_sec_rgt">
@@ -105,7 +100,7 @@ const Index = () => {
                                 </div>
                                 <div class="ed-pr-title">
                                     <h4>{profile.profile_name || "Spencer Robin"}</h4>
-                                    <span class="d-block">{profile.political_party || "Party Member"}</span>
+                                    <span class="d-block">{profile.role_type || "Party Member"}</span>
                                 </div>
                                 <div class="ed-pr-info">
                                     <ul>
