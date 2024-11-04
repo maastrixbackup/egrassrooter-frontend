@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
 });
@@ -36,9 +37,9 @@ const Banner = ({ banners }) => {
   };
   return (
     <section className="eg-banner-sec">
-      <img src="/images/banner-shape.png" alt className="banner-shape" />
+      <Image src="/images/banner-shape.png" className="banner-shape" alt="Contact" width={500} height={500} />
       <a href="#about" className="dn-ar">
-        <img src="/images/arrow-down.png" alt />
+        <Image src="/images/arrow-down.png" alt="Contact" width={500} height={500}  />
       </a>
       <OwlCarousel className="owl-theme eg-banner-bx" {...options}>
         {banners?.map((banner, i) => (

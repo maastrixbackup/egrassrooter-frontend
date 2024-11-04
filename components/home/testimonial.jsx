@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 const OwlCarousel = dynamic(() => import("react-owl-carousel"), {
   ssr: false,
@@ -51,13 +52,13 @@ const Testimonial = ({ Testimonials }) => {
               {Testimonials?.map((clientReview, i) => (
                 <div key={i} className="testi-item">
                   <div className="quote-img">
-                    <img src={clientReview.client_image} alt />
+                    <Image src={clientReview.client_image} alt="abcd" width={500} height={500} />
                   </div>
                   <p>
                     {clientReview.description}
                   </p>
                   <div className="client-img">
-                    <img src="/images/avtar.jpg" alt />
+                    <Image src="/images/avtar.jpg" alt="abcd" width={500} height={500} className="" />
                   </div>
                   <h2>{clientReview.client_name}</h2>
                   <span>{clientReview.position}</span>

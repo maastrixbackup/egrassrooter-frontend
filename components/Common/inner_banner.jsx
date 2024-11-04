@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const InnerBanner = (props) => {
 
@@ -27,19 +28,11 @@ const InnerBanner = (props) => {
         </div>
       </div>
       <div className="breadcrumb__shape">
-        <img src="/images/breadcrumb_shape01.png" alt />
-        <img
-          src="/images/breadcrumb_shape02.png"
-          alt
-          className="rightToLeft"
-        />
-        <img src="/images/breadcrumb_shape03.png" alt />
-        <img src="/images/breadcrumb_shape04.png" alt />
-        <img
-          src="/images/breadcrumb_shape05.png"
-          alt
-          className="alltuchtopdown"
-        />
+        <Image src="/images/breadcrumb_shape01.png" alt="abcd" width={500} height={500}  />
+        <Image src="/images/breadcrumb_shape02.png" alt="abcd" width={500} height={500} className="rightToLeft" />
+        <Image src="/images/breadcrumb_shape03.png" alt="abcd" width={500} height={500} />
+        <Image src="/images/breadcrumb_shape04.png" alt="abcd" width={500} height={500} />
+        <Image src="/images/breadcrumb_shape05.png" alt="abcd" width={500} height={500} className="alltuchtopdown" />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import * as Tabs from "@radix-ui/react-tabs";
+import Image from "next/image";
 
 const Overview = ({ overview, softwareheading }) => {
   return (
@@ -50,7 +51,7 @@ const Overview = ({ overview, softwareheading }) => {
                     tabIndex={0}
                   >
                     <div className="tab-cont-bx">
-                      <img src={item.Image} alt={item.title} />
+                      <Image src={item.Image} alt={item.title} width={500} height={500} />
                     </div>
                   </div>
                 ))}

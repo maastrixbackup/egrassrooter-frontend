@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PostData } from "../../utils/ApiCalls";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const ContactForm = () => {
   const { register, handleSubmit, formState: { errors }, trigger, reset } = useForm();
@@ -114,7 +115,7 @@ const ContactForm = () => {
           <div className="col-xl-5">
             <div className="contact-two__right">
               <div className="contact-two__img">
-                <img src="/images/contact.jpg" alt="Contact" />
+                <Image src="/images/contact.jpg" alt="Contact" width={500} height={500} />
               </div>
             </div>
           </div>

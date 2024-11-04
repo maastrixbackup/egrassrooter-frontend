@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
 const BlgSingleSlider = ({ newsBanner }) => {
   console.log(newsBanner);
@@ -26,10 +27,10 @@ const BlgSingleSlider = ({ newsBanner }) => {
       <div className="carousel-inner">
         {newsBanner?.map((newsBannerItem, i) => (
           <div key={i} className={`carousel-item ${i === 0 ? "active" : ""}`}>
-            <img
+            <Image
               src={newsBannerItem.image}
               className="d-block w-100"
-              alt=""
+              alt="abcd" width={500} height={500}
             />
             <div className="carousel-caption d-none d-md-block">
               <h5><Link href={`/news/${newsBannerItem.slug}`}>{newsBannerItem.news_title}</Link></h5>
