@@ -100,7 +100,7 @@ const Index = () => {
                                 </div>
                                 <div class="ed-pr-title">
                                     <h4>{profile.profile_name || "Spencer Robin"}</h4>
-                                    <span class="d-block">{profile.political_party || "Party Member"}</span>
+                                    <span class="d-block">{profile.role_type || "Party Member"}</span>
                                 </div>
                                 <div class="ed-pr-info">
                                     <ul>
