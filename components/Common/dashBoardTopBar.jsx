@@ -65,7 +65,7 @@ const DashBoardTopBar = ({ data }) => {
         <div className="row">
           <div className="col-lg-3 col-md-3">
             <div className="topbar_sec_fig">
-              <a href>
+              <a href="/dashboard">
                 <img src="/images/logo.png" alt />
               </a>
             </div>
