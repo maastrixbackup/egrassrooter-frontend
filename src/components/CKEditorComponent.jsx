@@ -5,7 +5,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClassicEditor, Bold, Essentials, Italic, Mention, Paragraph, Undo, Underline, Strikethrough, List, Heading } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
-import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
+// import 'ckeditor5-premium-features/ckeditor5-premium-features.css';
 
 function CustomEditor() {
   return (
