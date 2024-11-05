@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import 'select2/dist/css/select2.min.css';
 import 'select2/dist/js/select2.min.js';
-import AnalysisMap from "../../../../components/dashboard/Analysis/AnalysisMap";
 import $ from 'jquery';
 import Image from "next/image";
 import { axiosGet, PostData } from "../../../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AnalysisMap from "../../../../components/dashboard/analysis/AnalysisMap";
 
 const Index = () => {
     const [allMemberTeamLists, setAllMemberTeamList] = useState([]);
