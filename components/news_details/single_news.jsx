@@ -129,9 +129,9 @@ const SingleNews = () => {
               <i className="fas fa-chevron-left fa-2x me-3" />
             </a>
             <div>
-              <h5 className="mb-0 color-nvyblue fw-bold">DON'T MISS</h5>
+              <h5 className="mb-0 color-nvyblue fw-bold">DONT MISS</h5>
               <p className="mt-2">
-                Congress rolls out 'Better Deal,' new economic agenda
+                Congress rolls out Better Deal, new economic agenda
               </p>
             </div>
           </div>
@@ -139,7 +139,7 @@ const SingleNews = () => {
             <div className="text-end me-3">
               <h5 className="mb-0 color-nvyblue fw-bold">UP NEXT</h5>
               <p className="mt-2">
-                Illinois' financial crisis could bring the state to a halt
+                Illinois financial crisis could bring the state to a halt
               </p>
             </div>
             <a
