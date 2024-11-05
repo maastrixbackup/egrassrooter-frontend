@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next start",
-    "install": "next install",
     "build": "next build",
     "start": "next dev",
     "lint": "next lint"
