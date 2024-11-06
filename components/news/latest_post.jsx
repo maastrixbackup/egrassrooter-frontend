@@ -44,10 +44,6 @@ const LatestPost = ({ latestPosts }) => {
                 />
                     <div className="d-flex justify-content-end">
                       <Link className="btn-read-more" href={`/news/${latestpost.slug}`}>Read More <i class="fa-solid fa-angles-right"></i></Link>
-                      {/* <a href="your-target-page.html" className="btn-read-more">
-                        Read More <i className="fas fa-chevron-right" />
-                        <i className="fas fa-chevron-right" />
-                      </a> */}
                     </div>
                   </div>
                 </div>

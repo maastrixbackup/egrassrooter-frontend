@@ -1,17 +1,42 @@
 import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 import 'chart.js/auto';
-import { PostData } from "../../utils/ApiCalls";
+import { axiosGet, PostData } from "../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const BarChart = () => {
     const [electionResultsData, setElectionresultsData] = useState(null);
+    const [electionresults, setElectionresultsList] = useState({
+        electiontype: [],
+        statedata: [],
+        electionyears: [],
+    });
+    const [selectedElectionType, setSelectedElectionType] = useState("");
     const [getdata, setData] = useState({
         election_type: "",
         state_id: "",
         election_year: "",
     });
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const fetchElections = async () => {
+            try {
+                const response = await axiosGet("election-results", `Bearer ${token}`);
+                if (response) {
+                    setElectionresultsList(response);
+                } else {
+                    toast.error("Failed to fetch election data.");
+                }
+            } catch (error) {
+                console.error("Error fetching election data:", error);
+                toast.error("An error occurred while fetching election data.");
+            }
+        };
+
+        fetchElections();
+    }, []);
 
     useEffect(() => {
         if (getdata.election_type && getdata.election_year) {
@@ -52,12 +77,20 @@ const BarChart = () => {
         ssr: false,
     });
 
+    const handleElectionTypeChange = (event) => {
+        setSelectedElectionType(event.target.value);
+        handleChange(event);
+    };
+
+    const labels = electionResultsData?.allpartyVotes?.map(item => item.state);
+    const dataValues = electionResultsData?.allpartyVotes?.map(item => item.total_votes);
+
     const data = {
-        labels: ["a", "b", "c", "d", "e", "f"],
+        labels: labels,
         datasets: [
             {
                 label: 'YEAR WISE ELECTION DATA',
-                data: [1, 2, 3, 4, 5, 6],
+                data: dataValues,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -78,6 +111,7 @@ const BarChart = () => {
             },
         ],
     };
+
     return (
         <div className="election-result-bx">
             <div className="ele-re-bx">
@@ -136,8 +170,8 @@ const BarChart = () => {
             </div>
             <div className="ele-show-gh-bx">
                 <div className="row">
-                    <div style={{ width: "100%", height: "100vh" }}>
-                        <h1>Election Result</h1>
+                    <div style={{ width: "100%", height: "100%" }}>
+                        <h2 className="text-center">Election Result</h2>
                         <Bar data={data} />
                     </div>
                 </div>

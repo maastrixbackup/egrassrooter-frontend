@@ -1,34 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Management from "../../../components/dashboard/Management";
 import ElectionResultData from "../../../components/dashboard/ElectionResultData";
+import { axiosGet } from '../../../utils/ApiCalls';
 
 const DashBoard = () => {
+  const [dashboard, dashboardData] = useState([]);
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const fetchElections = async () => {
+        try {
+            const response = await axiosGet("dashboardget-data", `Bearer ${token}`);
+            if (response) {
+              dashboardData(response);
+            } else {
+                toast.error("Failed to fetch election data.");
+            }
+        } catch (error) {
+            console.error("Error fetching election data:", error);
+            toast.error("An error occurred while fetching election data.");
+        }
+    };
+
+    fetchElections();
+}, []);
+
   return (
     <>
       <div className="sidebar_sec_rgt">
-        <Management />
+        <Management dashboard={dashboard} />
         <ElectionResultData />
-        <div className="row mt-2">
-          <div className="col-lg-8 col-md-8">
-            <div className="sidebar_sec_rgt_cntbx">
-              <h3>Voter Turnout Trends</h3>
-              <img src="/images/Total-Registered-Voters.png" alt />
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-4">
-            <div className="sidebar_sec_rgt_boxs">
-              <div className="sidebar_sec_rgt_box_tw">
-                <div className="sidebar_sec_rgt_boxs_fig">
-                  <img src="/images/voters.png" alt />
-                </div>
-              </div>
-              <div className="sidebar_sec_rgt_boxs_cnt">
-                <h3>Projected Voter Turnout</h3>
-                <p>2,378,000</p>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="row mt-2">
           <div className="col-lg-3 col-md-3">
             <div className="sidebarbtm_sec_box1">
@@ -40,14 +41,7 @@ const DashBoard = () => {
               <div className="sidebarbtm_sec_box1_prgrsbar">
                 <div className="sidebarbtm_sec_box1_prgrsbar_1">
                   <div className="progress">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "25%" }}
-                      aria-valuenow={25}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "25%" }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100} >
                       1K-10K
                     </div>
                     <span>Twitter </span>
@@ -55,14 +49,7 @@ const DashBoard = () => {
                 </div>
                 <div className="sidebarbtm_sec_box1_prgrsbar_2">
                   <div className="progress">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "50%" }}
-                      aria-valuenow={50}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "50%" }} aria-valuenow={50} aria-valuemin={0} aria-valuemax={100} >
                       10K-50K
                     </div>
                     <span>Facebook </span>
@@ -70,14 +57,7 @@ const DashBoard = () => {
                 </div>
                 <div className="sidebarbtm_sec_box1_prgrsbar_3">
                   <div className="progress">
-                    <div
-                      className="progress-bar"
-                      role="progressbar"
-                      style={{ width: "75%" }}
-                      aria-valuenow={75}
-                      aria-valuemin={0}
-                      aria-valuemax={100}
-                    >
+                    <div className="progress-bar" role="progressbar" style={{ width: "75%" }} aria-valuenow={75} aria-valuemin={0} aria-valuemax={100} >
                       50K-500K
                     </div>
                     <span>Instagram </span>
