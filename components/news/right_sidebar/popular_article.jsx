@@ -13,7 +13,6 @@ const PopularArticle = ({ populararticles }) => {
           {populararticles?.map((poparticle, i) => (
             <div key={i} className="d-flex align-items-center mb-3">
               <Link href="#">
-                <a className="me-3">
                   <Image
                     className="img-fluid rounded"
                     src={poparticle.image}
@@ -21,14 +20,11 @@ const PopularArticle = ({ populararticles }) => {
                     width={70}
                     height={70}
                   />
-                </a>
               </Link>
               <div>
                 <h4 className="h6 mb-1">
-                  <Link href="#">
-                    <a className="text-dark fw-bold">
+                  <Link href="#" className="text-dark fw-bold">
                       {poparticle.title}
-                    </a>
                   </Link>
                 </h4>
                 <time dateTime={poparticle.date} className="text-muted small">

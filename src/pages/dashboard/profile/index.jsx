@@ -110,7 +110,7 @@ const Index = () => {
                                             <a href="#"><i class="fal fa-phone-alt"></i><span>{profile.telephone || "021245869"}</span></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>{profile.state}</span></a>
+                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>{profile.state || "N/A"}</span></a>
                                         </li>
                                     </ul>
                                 </div>
