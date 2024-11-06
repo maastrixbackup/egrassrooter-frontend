@@ -1,30 +1,47 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { axiosGet } from "../../../utils/ApiCalls";
+import { PostData } from "../../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
-    const [rolelists, setRolelist] = useState([]);
+    const [statelists, setStateList] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);  // Track the current page
+    const [totalPages, setTotalPages] = useState(1);    // Track total pages
 
     useEffect(() => {
-        const fetchData = async () => {
-            const tokenData = localStorage.getItem("token");
-            const userId = localStorage.getItem("userId");
+        fetchData(currentPage);
+    }, [currentPage]);
 
-            if (tokenData && userId) {
-                try {
-                    const res = await axiosGet("rolelist", `Bearer ${tokenData}`);
-                    setRolelist(res.data || []);
-                } catch (error) {
-                    toast.error("An error occurred. Please login again.");
-                }
-            } else {
-                toast.error("No token or user ID found. Please login.");
-            }
+    const fetchData = async (page) => {
+        const tokenData = localStorage.getItem("token");
+        const formData = {
+            zone_key: 5,
+            page: page,
         };
-        fetchData();
-    }, []);
+
+        if (tokenData) {
+            try {
+                const response = await PostData(`dashboard/get-political-zones`, formData, "", `Bearer ${tokenData}`);
+                setStateList(response.states.data); // Only use the "data" array here
+                setTotalPages(response.states.last_page); // Set total pages from API response
+            } catch (error) {
+                toast.error("An error occurred. Please login again.");
+            }
+        }
+    };
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     return (
         <div className="sidebar_sec_rgt">
@@ -47,19 +64,30 @@ const Index = () => {
                 </div>
                 <div className="table-bx">
                     <table style={{ width: "100%" }}>
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th>Sl No#</th>
                                 <th>State Name</th>
                             </tr>
-                            {rolelists.map((role, index) => (
-                                <tr key={role.id || index}>
-                                    <td>{index + 1}</td>
-                                    <td>{role.role}</td>
+                        </thead>
+                        <tbody>
+                            {statelists?.map((state, index) => (
+                                <tr key={state.stateid || index}>
+                                    <td>{(currentPage - 1) * 20 + index + 1}</td>
+                                    <td>{state.statename}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+                    <div className="pagination-controls">
+                        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+                            Previous
+                        </button>
+                        <span>Page {currentPage} of {totalPages}</span>
+                        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+                            Next
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

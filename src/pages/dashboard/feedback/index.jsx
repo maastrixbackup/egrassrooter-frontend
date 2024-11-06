@@ -19,8 +19,6 @@ const Index = () => {
                 } catch (error) {
                     toast.error("An error occurred. Please login again.");
                 }
-            } else {
-                toast.error("No token or user ID found. Please login.");
             }
         };
         fetchData();

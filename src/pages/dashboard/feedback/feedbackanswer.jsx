@@ -10,11 +10,9 @@ const Index = () => {
     useEffect(() => {
         const fetchData = async () => {
             const tokenData = localStorage.getItem("token");
-            const userId = localStorage.getItem("userId");
-
-            if (tokenData && userId) {
+            if (tokenData) {
                 try {
-                    const res = await axiosGet("rolelist", `Bearer ${tokenData}`);
+                    const res = await axiosGet("get-all-survey-report", `Bearer ${tokenData}`);
                     setRolelist(res.data || []);
                 } catch (error) {
                     toast.error("An error occurred. Please login again.");
@@ -32,13 +30,13 @@ const Index = () => {
                         <Link href="/dashboard">Dashboard</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        Role
+                        Give Feedback
                     </li>
                 </ol>
             </nav>
             <div className="table-bx-main">
                 <div className="table-title">
-                    <h4>Role List</h4>
+                    <h4>Give Feedback List</h4>
                     <Link href="/dashboard" className="btn-back">
                         <i className="fal fa-angle-double-left" />
                     </Link>
@@ -48,20 +46,18 @@ const Index = () => {
                         <tbody>
                             <tr>
                                 <th>Sl No#</th>
-                                <th>Role Name</th>
-                                <th>Created On</th>
-                                <th>Active</th>
+                                <th>User Name</th>
+                                <th>Survey Title</th>
+                                <th>Question</th>
+                                <th>User Answer</th>
                             </tr>
-                            {rolelists.map((role, index) => (
-                                <tr key={role.id || index}>
+                            {rolelists.map((feedback, index) => (
+                                <tr key={feedback.id || index}>
                                     <td>{index + 1}</td>
-                                    <td>{role.role}</td>
-                                    <td>{role.created}</td>
-                                    <td>
-                                        <button className={`btn-toggle-status ${role.is_active == "Publish" ? "button-publish" : "button-not-publish"}`}>
-                                            {role.is_active == "Publish" ? "Publish" : "Unpublish"}
-                                        </button>
-                                    </td>
+                                    <td>{feedback.user_name}</td>
+                                    <td>{feedback.survey_title}</td>
+                                    <td>{feedback.question_text}</td>
+                                    <td>{feedback.user_answer}</td>
                                 </tr>
                             ))}
                         </tbody>

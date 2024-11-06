@@ -48,20 +48,12 @@ const Add = () => {
         };
 
         // Verify token
-        const verifyTokenResponse = await PostData("verify-token", { token: userId }, "", `Bearer ${tokenData}`);
-        if (verifyTokenResponse.status === 200) {
-          const res = await PostData(`event-add`, data, "", `Bearer ${tokenData}`);
-          if (res) {
-            toast.success(res.message);
-            router.push("/dashboard/event");
-          } else {
-            toast.error(res.message);
-          }
+        const res = await PostData(`event-add`, data, "", `Bearer ${tokenData}`);
+        if (res) {
+          toast.success(res.message);
+          router.push("/dashboard/event");
         } else {
-          toast.error("Token verification failed. Please login again.");
-          localStorage.removeItem("token");
-          localStorage.removeItem("userId");
-          signOut();
+          toast.error(res.message);
         }
       } catch (error) {
         toast.error("An error occurred while updating the event.");
@@ -82,7 +74,7 @@ const Add = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <div className="sidebar_sec_rgt">
       <nav aria-label="breadcrumb" className="d-flex align-items-start">
@@ -258,21 +250,21 @@ const Add = () => {
                     className="form-control"
                     rows={4}
                     required
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-12 text-end">
-                  <button type="submit" className="btn-event">
-                    Create Event
-                  </button>
+                  />
                 </div>
               </div>
-            </form>
-          </div>
+              <div className="col-lg-12 text-end">
+                <button type="submit" className="btn-event">
+                  Create Event
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    );
-  };
-  
-  export default Add;
-  
+    </div>
+  );
+};
+
+export default Add;
+

@@ -38,22 +38,13 @@ const NewTeam = () => {
     }
 
     try {
-      const verifyTokenResponse = await PostData("verify-token", { token: userId }, "", `Bearer ${tokenData}`);
-      if(verifyTokenResponse.status === 200) {
-        const response = await PostData(`team-add`, formData, "", `Bearer ${tokenData}`);
-      
+      const response = await PostData(`team-add`, formData, "", `Bearer ${tokenData}`);      
         if (response.data) {
           toast.success(response.message);
           router.push("/dashboard/team");
         } else {
           toast.error(response.message);
         }
-      } else {
-        toast.error(verifyTokenResponse.message);
-        localStorage.removeItem("token");
-        localStorage.removeItem("userId");
-        signOut();
-      }
     } catch (error) {
       toast.error('Something went wrong, please try again.');
     }

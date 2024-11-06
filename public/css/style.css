@@ -296,6 +296,12 @@ section.eg-run-sec {background:#ebebeb;}
 100% {transform:translateX(-50%) translateY(-50%) translateZ(0) scale(1.5); opacity:0;}
 }
 
+.ed-cam-tag2 {
+    position: absolute;
+    bottom: 5px;
+    right: 21px;
+}
+
 
 
 .banner-top {

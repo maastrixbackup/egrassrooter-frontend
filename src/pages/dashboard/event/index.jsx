@@ -19,29 +19,17 @@ const Index = () => {
         const data = { token: userId };
 
         try {
-          const verifyTokenResponse = await PostData("verify-token", data, "", `Bearer ${tokenData}`);
-
-          if (verifyTokenResponse.status === 200) {
-            const res = await axiosGet("event", `Bearer ${tokenData}`);
-            setEvents(res.data || []);
-            setLoading(false);
-          } else {
-            toast.error("Token verification failed. Please login again.");
-            localStorage.removeItem('token');
-            localStorage.removeItem('userId');
-            signOut();
-          }
+          const res = await axiosGet("event", `Bearer ${tokenData}`);
+          setEvents(res.data || []);
+          setLoading(false);
         } catch (error) {
           toast.error("An error occurred. Please login again.");
           localStorage.removeItem('token');
           localStorage.removeItem('userId');
-          signOut();
         }
       } else {
-        toast.error("No token or user ID found. Please login.");
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
-        signOut();
       }
     };
 

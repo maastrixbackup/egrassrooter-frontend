@@ -6,21 +6,6 @@ import { axiosGet, PostData } from "../../../../utils/ApiCalls";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const verifyToken = async (token, userId) => {
-    try {
-        const response = await PostData("verify-token", { token: userId }, "", `Bearer ${token}`);
-        if (response.status === 200) {
-            return true;
-        } else {
-            toast.error("Token verification failed. Please login again.");
-            return false;
-        }
-    } catch (error) {
-        toast.error("An error occurred. Please login again.");
-        return false;
-    }
-};
-
 const Edit = () => {
     const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
     const router = useRouter();
@@ -80,7 +65,7 @@ const Edit = () => {
             const tokenData = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
 
-            if (tokenData && userId && await verifyToken(tokenData, userId)) {
+            if (tokenData && userId) {
                 try {
                     const res = await axiosGet("add-member", `Bearer ${tokenData}`);
                     setData(res || {});
@@ -102,7 +87,7 @@ const Edit = () => {
             const tokenData = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
 
-            if (tokenData && userId && await verifyToken(tokenData, userId)) {
+            if (tokenData && userId) {
                 try {
                     const senatorialRes = await axiosGet(`member/get-senatorialstates/${watchedState}`, `Bearer ${tokenData}`);
                     const lgaRes = await axiosGet(`member/get-lga/${watchedState}`, `Bearer ${tokenData}`);
@@ -127,7 +112,7 @@ const Edit = () => {
             const tokenData = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
 
-            if (tokenData && userId && await verifyToken(tokenData, userId)) {
+            if (tokenData && userId) {
                 try {
                     const res = await axiosGet(`member/get-ward/${watchedLgas}`, `Bearer ${tokenData}`);
                     setWardsData(res.lgawiseward || []);
@@ -149,7 +134,7 @@ const Edit = () => {
             const tokenData = localStorage.getItem("token");
             const userId = localStorage.getItem("userId");
 
-            if (tokenData && userId && await verifyToken(tokenData, userId)) {
+            if (tokenData && userId) {
                 try {
                     const res = await axiosGet(`member/get-pollingunit/${watchedWard}`, `Bearer ${tokenData}`);
                     setPusData(res.wardwise_pollingunit || []);

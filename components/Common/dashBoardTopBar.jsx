@@ -28,22 +28,16 @@ const DashBoardTopBar = ({ data }) => {
                 toast.error("Failed to fetch profile data.");
               }
             } else {
-              toast.error("Token verification failed. Please login again.");
               localStorage.removeItem("token");
               localStorage.removeItem("userId");
-              router.push("/login");
             }
           } catch (error) {
-            toast.error("An error occurred. Please login again.");
             localStorage.removeItem("token");
             localStorage.removeItem("userId");
-            router.push("/login");
           }
         } else {
-          toast.error("No token or user ID found. Please login.");
           localStorage.removeItem("token");
           localStorage.removeItem("userId");
-          router.push("/login");
         }
       }
     };
