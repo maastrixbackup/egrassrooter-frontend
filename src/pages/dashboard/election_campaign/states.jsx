@@ -34,7 +34,6 @@ const States = () => {
 						setLoading(false); // Set loading to false when done
 					}
 				} else {
-					toast.error("No token or user ID found. Please login.");
 					localStorage.removeItem("token");
 					localStorage.removeItem("userId");
 				}

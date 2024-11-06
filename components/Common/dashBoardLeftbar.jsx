@@ -24,8 +24,6 @@ const DashboardLeftbar = () => {
                 const res = await axiosGet("getprofile", `Bearer ${tokenData}`);
                 if (res.profile_data) {
                     setProfile(res.profile_data || {});
-                } else {
-                    toast.error("Failed to fetch profile data.");
                 }
             }
         };
@@ -35,6 +33,7 @@ const DashboardLeftbar = () => {
     const handleSignOut = () => {
         localStorage.clear();
         signOut();
+        toast.success("Logged out successfully");
     };
 
     const isActive = (path) => {
@@ -76,7 +75,7 @@ const DashboardLeftbar = () => {
                         <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>} className={router.pathname === '/dashboard/analysis' ? 'active' : ''}><Link href="/dashboard/analysis">Senate Analysis</Link></MenuItem>
                         <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem>
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
-                            {/* {renderMenuItem("/dashboard/analytics", "Give Feedback", null)} */}
+                            {renderMenuItem("/dashboard/feedback/feedbackanswer", "Give Feedback", null)}
                             {renderMenuItem("/dashboard/feedback", "Feedback List", null)}
                             <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Analysis </span>}>
                                 {renderMenuItem("/dashboard/canvas", "Canvassing", null)}

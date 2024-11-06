@@ -31,7 +31,6 @@ const Index = () => {
                         toast.error("Failed to fetch edit profile data.");
                     }
                 } else {
-                    toast.error("No token or user ID found. Please login.");
                     localStorage.removeItem("token");
                     localStorage.removeItem("userId");
                 }
@@ -110,7 +109,7 @@ const Index = () => {
                                             <a href="#"><i class="fal fa-phone-alt"></i><span>{profile.telephone || "021245869"}</span></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>{profile.state || "N/A"}</span></a>
+                                            <a href="#"><i class="fal fa-map-marker-alt"></i><span>{profile?.stateData?.state || "N/A"}</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -144,6 +143,9 @@ const Index = () => {
                                                 <ul>
                                                     <li>{profile.role_type || "Grassrooters"}</li>
                                                 </ul>
+                                            </div>
+                                            <div class="ed-cam-tag2">
+                                                <p>{profile.political_party || "Party Name"}</p>
                                             </div>
                                         </div>
                                         <div class="campaign-sec mt-4">
