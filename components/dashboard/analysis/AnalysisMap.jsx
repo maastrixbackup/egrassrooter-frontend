@@ -31,15 +31,17 @@ function MyComponent({ data }) {
   }, []);
 
   const showAllStateMarkers = () => {
-    return Object.entries(data.states || {}).map(([stateName, stateData], i) => {
-      const lat = parseFloat(stateData.latitude);
-      const lng = parseFloat(stateData.longitude);
-
+    return Object.entries(data.alldata || {}).map(([stateName, stateData], i) => {
+      const { latitude, longitude, polling_unit_count } = stateData[0];
+  
+      const lat = parseFloat(latitude);
+      const lng = parseFloat(longitude);
+  
       let customIcon = Blue;
-
-      if (stateData.polling_unit_count < 4000) customIcon = Green;
-      else if (stateData.polling_unit_count > 5000) customIcon = Red;
-
+  
+      if (polling_unit_count < 4000) customIcon = Green;
+      else if (polling_unit_count > 5000) customIcon = Red;
+  
       if (lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
         return (
           <Marker key={i} position={{ lat, lng }} icon={customIcon} title={stateName} />
@@ -48,31 +50,10 @@ function MyComponent({ data }) {
     });
   };
 
-  // const showAllZoneMarkers = () => {
-  //   return Object.entries(data.states || {}).flatMap(([zoneName, states]) =>
-  //     states.map((state, i) => {
-  //       const lat = parseFloat(state.latitude);
-  //       const lng = parseFloat(state.longitude);
-        
-  //       let customIcon = Blue;
-  //       if (state.polling_unit_count < 4000) customIcon = Green;
-  //       else if (state.polling_unit_count > 5000) customIcon = Red;
-
-  //       if (lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
-  //         return (
-  //           <Marker key={`${zoneName}-${i}`} position={{ lat, lng }} icon={customIcon} title={`${zoneName} - ${state.name}`} />
-  //         );
-  //       }
-  //     })
-  //   );
-  // };
-
-
   return isLoaded ? (
     <div style={{ width: "100%", height: "100vh", marginTop: "3%" }}>
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={7} onLoad={onLoad} onUnmount={onUnmount} >
         {showAllStateMarkers()}
-        {/* {showAllZoneMarkers()} */}
       </GoogleMap>
     </div>
   ) : (

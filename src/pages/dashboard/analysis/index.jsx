@@ -60,7 +60,7 @@ const Index = () => {
         try {
             const response = await PostData("all-analytics-zone", formattedZones, "", `Bearer ${tokenData}`);
             if (response.success === true) {
-                setZoneList(response.states);
+                setZoneList(response.alldata);
                 setData(response);
             } else {
                 toast.error("Failed to update zones.");
@@ -84,7 +84,7 @@ const Index = () => {
         try {
             const response = await PostData("all-analytics-lgas", formattedState, "", `Bearer ${tokenData}`);
             if (response) {
-                setStateList(response.lgaList);
+                setStateList(response.alldata);
                 setData(response);
             } else {
                 toast.error("Failed to update zones.");
@@ -107,7 +107,7 @@ const Index = () => {
         try {
             const response = await PostData("all-analytics-ward", formattedLga, "", `Bearer ${tokenData}`);
             if (response) {
-                setWardList(response.ward_list);
+                setWardList(response.alldata);
                 setData(response);
             } else {
                 toast.error("Failed to update zones.");
@@ -130,7 +130,7 @@ const Index = () => {
         try {
             const response = await PostData("all-analytics-polling-unit", formattedWard, "", `Bearer ${tokenData}`);
             if (response) {
-                setPulList(response.pollingUnit);
+                setPulList(response.alldata);
                 setData(response);
             } else {
                 toast.error("Failed to update zones.");
@@ -153,7 +153,7 @@ const Index = () => {
         try {
             const response = await PostData("polling-unit-member-team", formattedPullu, "", `Bearer ${tokenData}`);
             if (response) {
-                setPulDataList(response.polling_unit);
+                setPulDataList(response.alldata);
                 setData(response);
             } else {
                 toast.error("Failed to update zones.");
