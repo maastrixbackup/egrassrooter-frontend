@@ -221,7 +221,7 @@ const Index = () => {
                                     <div class="col-lg-3">
                                         <div class="tar_check_sp">
                                             <div class="state_list_title">
-                                                <h3>Ward List</h3>
+                                                <h3>LGAs List</h3>
                                             </div>
                                             <div class="target_scroll">
                                                 {Object.entries(allStateList).map(([state, lgas]) => (
@@ -247,7 +247,7 @@ const Index = () => {
                                     <div class="col-lg-3">
                                         <div class="tar_check_sp">
                                             <div class="state_list_title">
-                                                <h3>LGAs List</h3>
+                                                <h3>Ward List</h3>
                                             </div>
                                             <div class="target_scroll">
                                                 {Object.entries(allWardList).map(([lga, wards]) => (
