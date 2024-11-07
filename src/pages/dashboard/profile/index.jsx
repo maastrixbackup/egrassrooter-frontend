@@ -258,7 +258,7 @@ const Index = () => {
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label for="">Date of Registration</label>
-                                                                <input type="date" name="registration_date" class="form-control" value={editProfile.registration_date} onChange={handleChange} />
+                                                                <input type="date" name="registration_date" class="form-control" value={editProfile.registration_date} onChange={handleChange} readOnly />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-12">

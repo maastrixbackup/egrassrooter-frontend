@@ -32,7 +32,6 @@ function MyComponent({ data }) {
 
   const showAllStateMarkers = () => {
     return Object.entries(data.alldata || {}).map(([region, states], i) => {
-      // Iterate through each state in the region
       return states.map((stateData, j) => {
         const { latitude, longitude, polling_unit_count, name } = stateData;
   
@@ -44,11 +43,10 @@ function MyComponent({ data }) {
         if (polling_unit_count < 4000) customIcon = Green;
         else if (polling_unit_count > 5000) customIcon = Red;
   
-        // Ensure the coordinates are valid
         if (lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
           return (
             <Marker
-              key={`${i}-${j}`} // Unique key for each marker
+              key={`${i}-${j}`}
               position={{ lat, lng }}
               icon={customIcon}
               title={name}
