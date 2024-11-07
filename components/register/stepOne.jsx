@@ -3,6 +3,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 function StepOne({ register, errors, data, watch }) {
   const recaptchaRef = React.createRef();
+  const today = new Date().toISOString().split('T')[0];
 
   const handleRecaptchaChange = (value) => {
     console.log("Captcha value:", value);
@@ -113,7 +114,7 @@ function StepOne({ register, errors, data, watch }) {
               <input
                 type="date"
                 className={errors.date_of_registration ? "form-control errorBox" : "form-control"}
-                {...register("date_of_registration", { required: true })}
+                {...register("date_of_registration", { required: true })} max={today}
               />
               {errors.date_of_registration && (
                 <p className="errorMsg">
