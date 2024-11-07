@@ -82,14 +82,23 @@ const BarChart = () => {
         handleChange(event);
     };
 
-    const labels = electionResultsData?.allpartyVotes?.map(item => item.state);
-    const dataValues = electionResultsData?.allpartyVotes?.map(item => item.total_votes);
+    let labels = [];
+    let dataValues = [];
+
+    if (electionResultsData) {
+        if (electionResultsData.electiontype == 1) {
+            labels = electionResultsData.allpartyVotes?.map(item => item.state) || [];
+        } else {
+            labels = electionResultsData.allpartyVotes?.map(item => item.party?.party_name) || [];
+        }
+        dataValues = electionResultsData.allpartyVotes?.map(item => item.total_votes) || [];
+    }
 
     const data = {
         labels: labels,
         datasets: [
             {
-                label: 'YEAR WISE ELECTION DATA',
+                label: 'ELECTION DATA',
                 data: dataValues,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
