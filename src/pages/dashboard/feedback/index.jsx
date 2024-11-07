@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { axiosGet } from "../../../../utils/ApiCalls";
 import { toast } from "react-toastify";
+import DataTable from "react-data-table-component";
 import "react-toastify/dist/ReactToastify.css";
 
 const Index = () => {
@@ -24,6 +25,23 @@ const Index = () => {
         fetchData();
     }, []);
 
+    const columns = [
+        { name: "Sl No#", selector: (row, index) => index + 1, width: "100px" },
+        { name: "Question", selector: (row) => row.questions, sortable: true },
+        { name: "Created On", selector: (row) => row.created, sortable: true },
+        {
+            name: "Actions",
+            cell: (row) => (
+                <a
+                    href={`/dashboard/feedback/surveyreply?id=${row.id}&sid=${row.survey_id}`}
+                    className="btn-share"
+                >
+                    <i className="fa fa-reply" />
+                </a>
+            ),
+        },
+    ];
+
     return (
         <div className="sidebar_sec_rgt">
             <nav aria-label="breadcrumb" className="d-flex align-items-start">
@@ -43,29 +61,13 @@ const Index = () => {
                         <i className="fal fa-angle-double-left" />
                     </Link>
                 </div>
-                <div className="table-bx">
-                    <table style={{ width: "100%" }}>
-                        <tbody>
-                            <tr>
-                                <th>Sl No#</th>
-                                <th>Question</th>
-                                <th>Created On</th>
-                                <th>Actions</th>
-                            </tr>
-                            {feedbacklists.map((feedback, index) => (
-                                <tr key={feedback.id || index}>
-                                    <td>{index + 1}</td>
-                                    <td>{feedback.questions}</td>
-                                    <td>{feedback.created}</td><td>
-                                        <a href={`/dashboard/feedback/surveyreply?id=${feedback.id}&sid=${feedback.survey_id}`} className="btn-share">
-                                            <i className="fa fa-reply" />
-                                        </a>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                <DataTable
+                    columns={columns}
+                    data={feedbacklists}
+                    pagination
+                    highlightOnHover
+                    responsive
+                />
             </div>
         </div>
     );
