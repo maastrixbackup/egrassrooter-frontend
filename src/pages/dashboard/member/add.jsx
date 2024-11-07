@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm();
   const router = useRouter();
   const [data, setData] = useState({ role_type: [], statedata: [], partydata: [] });
   const [senatorialData, setSenatorialData] = useState([]);
@@ -18,6 +18,7 @@ const Add = () => {
   const watchedState = watch("state");
   const watchedLgas = watch("voting_local_government");
   const watchedWard = watch("ward");
+  const vinValue = watch("voters_id_number");
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -108,21 +109,41 @@ const Add = () => {
     if (watchedWard) handleWardsChange();
   }, [watchedWard]);
 
+  const formatVIN = (value) => {
+    const cleaned = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+    let formatted = "";
+    for (let i = 0; i < cleaned.length; i++) {
+      if (i > 0 && i % 4 === 0 && i < 20) {
+        formatted += "-";
+      }
+      formatted += cleaned.charAt(i);
+      if (formatted.length >= 24) {
+        break;
+      }
+    }
+    return formatted;
+  };
+
+  useEffect(() => {
+    if (vinValue) {
+      const formattedVIN = formatVIN(vinValue);
+      if (vinValue !== formattedVIN) {
+        setValue("voters_id_number", formattedVIN);
+      }
+    }
+  }, [vinValue, setValue]);
+
   const onSubmit = async (formData) => {
     const tokenData = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
     if (tokenData && userId) {
-      try {
-        const response = await PostData("member-add", formData, "", `Bearer ${tokenData}`);
-        if (response.data) {
-          toast.success(response.message);
-          router.push("/dashboard/member");
-        } else {
-          toast.error(response.message);
-        }
-      } catch (error) {
-        toast.error("Something went wrong, please try again.");
+      const response = await PostData("member-add", formData, "", `Bearer ${tokenData}`);
+      if (response.data) {
+        toast.success(response.message);
+        router.push("/dashboard/member");
+      } else {
+        toast.error(response.message);
       }
     }
   };
@@ -153,15 +174,15 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="campaign_type">Role Type <span>*</span></label>
-                    <select id="campaign_type" name="campaign_type" className={errors.campaign_type ? "form-select errorBox" : "form-select"} {...register("campaign_type", { required: true })}>
-                        <option value="">Select Campaign Type</option>
-                        {data.role_type.map((eleType, i) => (
-                          <option key={i} value={eleType.role_id}>
-                            {eleType.role_name}
-                          </option>
-                        ))}
+                    <select id="role_type" name="role_type" className={errors.role_type ? "form-select errorBox" : "form-select"} {...register("role_type", { required: true })}>
+                      <option value="">Select Campaign Type</option>
+                      {data.role_type.map((eleType, i) => (
+                        <option key={i} value={eleType.role_id}>
+                          {eleType.role_name}
+                        </option>
+                      ))}
                     </select>
-                    {errors.campaign_type && (
+                    {errors.role_type && (
                       <p className="errorMsg">
                         <i className="fas fa-exclamation-triangle"></i> This field is required
                       </p>
@@ -171,7 +192,7 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="name"> Member Name <span>*</span></label>
-                    <input id="name" type="text" name="name" placeholder="" className="form-control" {...register("name", { required: true })}/>
+                    <input id="name" type="text" name="name" placeholder="" className="form-control" {...register("name", { required: true })} />
                     {errors.name && (
                       <p className="errorMsg">
                         <i className="fas fa-exclamation-triangle"></i> This field is required
@@ -202,7 +223,7 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="phone_number">Phone Number <span>*</span></label>
-                    <input id="phone_number" type="number" name="phone_number" placeholder="" className="form-control" {...register("phone_number", { required: true })}/>
+                    <input id="phone_number" type="number" name="phone_number" placeholder="" className="form-control" {...register("phone_number", { required: true })} />
                     {errors.phone_number && (
                       <p className="errorMsg">
                         <i className="fas fa-exclamation-triangle"></i> This field is required
@@ -213,8 +234,8 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="email">Email Id <span>*</span></label>
-                    <input id="email" type="email" name="email" placeholder="" className="form-control" {...register("email", { required: true })}/>
-                    {errors.email && (
+                    <input id="email_id" type="email" name="email_id" placeholder="" className="form-control" {...register("email_id", { required: true })} />
+                    {errors.email_id && (
                       <p className="errorMsg">
                         <i className="fas fa-exclamation-triangle"></i> This field is required
                       </p>
@@ -224,19 +245,26 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="date_of_birth">Date of Birth <span>*</span></label>
-                    <input id="date_of_birth" type="date" name="date_of_birth" className="form-control" {...register("date_of_birth", { required: true })}/>
-                    {errors.date_of_birth && (
-                      <p className="errorMsg">                       
-                       <i className="fas fa-exclamation-triangle"></i> This field is required
+                    <input id="dob" type="date" name="dob" className="form-control" {...register("dob", { required: true })} />
+                    {errors.dob && (
+                      <p className="errorMsg">
+                        <i className="fas fa-exclamation-triangle"></i> This field is required
                       </p>
                     )}
                   </div>
                 </div>
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
-                    <label htmlFor="voters_id">Voters ID Number <span>*</span></label>
-                    <input id="voters_id" type="text" name="voters_id" placeholder="" className="form-control" {...register("voters_id", { required: true })}/>
-                    {errors.voters_id && (
+                    <label htmlFor="voters_id_number">Voters ID Number <span>*</span></label>
+                    <input
+                      id="voters_id_number"
+                      type="text"
+                      placeholder="XXXX-XXXX-XXXX-XXXX-XXXX"
+                      className={errors.voters_id_number ? "form-control errorBox" : "form-control"}
+                      {...register("voters_id_number", { required: true })}
+                      pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}"
+                    />
+                    {errors.voters_id_number && (
                       <p className="errorMsg">
                         <i className="fas fa-exclamation-triangle"></i> This field is required
                       </p>
@@ -312,13 +340,13 @@ const Add = () => {
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="code">Code</label>
-                    <input id="code" type="text" name="code" placeholder="" className="form-control" {...register("code")}/>
+                    <input id="code" type="text" name="code" placeholder="" className="form-control" {...register("code")} />
                   </div>
                 </div>
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group">
                     <label htmlFor="occupation">Occupation</label>
-                    <input id="occupation" type="text" name="occupation" placeholder="" className="form-control" {...register("occupation")}/>
+                    <input id="occupation" type="text" name="occupation" placeholder="" className="form-control" {...register("occupation")} />
                   </div>
                 </div>
                 <div className="col-lg-4 col-md-6 col-6">
@@ -335,7 +363,7 @@ const Add = () => {
                 </div>
                 <div className="col-lg-4 col-md-6 col-6">
                   <div className="form-group"><label htmlFor="date_of_registration"> Date of Registration</label>
-                    <input id="date_of_registration" type="text" name="date_of_registration" placeholder="" className="form-control" {...register("date_of_registration")} />
+                    <input id="date_of_registration" type="date" name="date_of_registration" placeholder="" className="form-control" {...register("date_of_registration")} />
                   </div>
                 </div>
                 <div className="col-lg-4">

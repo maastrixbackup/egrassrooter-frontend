@@ -38,10 +38,15 @@ const Index = ({ data }) => {
         ...formData,
         slug: formData.slug + ".egrassrooter.com",
       });
-      toast.success(data?.message);
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
+      if (data?.status == true) {
+        toast.success(data?.message);
+        setTimeout(() => {
+          router.push("/login");
+        }, 3000);
+      } else {
+        toast.error(data?.message);
+      }
+
     } catch (error) {
       console.log(error);
       toast.error(error?.response?.data?.message);
