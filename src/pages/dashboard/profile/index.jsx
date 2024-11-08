@@ -44,20 +44,45 @@ const Index = () => {
         const cleaned = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
         let formatted = "";
         for (let i = 0; i < cleaned.length; i++) {
-            if (i > 0 && i % 4 === 0 && i <= 24) {
+            if (i > 0 && i % 4 === 0 && i <= 23) {
                 formatted += "-";
             }
             formatted += cleaned.charAt(i);
-            if (formatted.length >= 24) {
+            if (formatted.length >= 23) {
                 break;
             }
         }
         return formatted;
     };
 
+    const formatCode = (value) => {
+        const cleaned = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
+        let formatted = "";
+
+        for (let i = 0; i < cleaned.length; i++) {
+            if (i > 0 && i % 2 === 0 && i <= 7) {
+                formatted += "-";
+            } else if (i > 7 && i % 3 === 0) { 
+                formatted += "-";
+            }
+            formatted += cleaned.charAt(i);
+
+            if (formatted.length >= 12) {
+                break;
+            }
+        }
+        return formatted;
+    };
+
+
     const handleVinChange = (e) => {
         const formattedVin = formatVIN(e.target.value);
         setEditProfile((prev) => ({ ...prev, vin: formattedVin }));
+    };
+
+    const handleCodeChange = (e) => {
+        const formattedCode = formatCode(e.target.value);
+        setEditProfile((prev) => ({ ...prev, pu_code: formattedCode }));
     };
 
     const handleChange = (e) => {
@@ -123,6 +148,11 @@ const Index = () => {
                                             Campaign Details
                                         </button>
                                     </li>
+                                    {/* <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="campaign-tab" data-bs-toggle="tab" data-bs-target="#campaign-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                                            Edit Campaign Details
+                                        </button>
+                                    </li> */}
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
                                             Edit Profile
@@ -165,7 +195,7 @@ const Index = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" >
+                                    <div class="tab-pane fade" id="campaign-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" >
                                         <div class="campaign-sec">
                                             <div className="event-form">
                                                 <form onSubmit={handleUpdate}>
@@ -173,7 +203,7 @@ const Index = () => {
                                                         <div className="col-lg-12">
                                                             <div className="file-form">
                                                                 {/* <label className="form__container" id="upload-container">Choose or Drag & Drop File</label> */}
-                                                                <input name="profile_photo" id="upload-files" type="file" accept="image/*" multiple="multiple" onChange={handleChange}/>
+                                                                <input name="profile_photo" id="upload-files" type="file" accept="image/*" multiple="multiple" onChange={handleChange} />
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-4">
@@ -195,23 +225,22 @@ const Index = () => {
                                                                     <div className="form-group">
                                                                         <input type="radio" id="male" name="gender" value="male" checked={editProfile.gender === "male"} onChange={handleChange} required />
                                                                         <label htmlFor="male">MALE</label>
-                                                                    </div>
-                                                                    <div className="form-group">
+                                                                
                                                                         <input type="radio" id="female" name="gender" value="female" checked={editProfile.gender === "female"} onChange={handleChange} required />
                                                                         <label htmlFor="female">FEMALE</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-4">
+                                                        {/* <div className="col-lg-4">
                                                             <div className="form-group">
                                                                 <label>DOB <span>*</span></label>
                                                                 <div className="input-icon-ab">
                                                                     <input type="date" name="dob" className="form-control" value={editProfile.dob} onChange={handleChange} required />
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div className="col-lg-4">
+                                                        </div> */}
+                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Phone Number <span>*</span></label>
                                                                 <div className="input-icon-ab">
@@ -219,19 +248,19 @@ const Index = () => {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-4">
+                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Email Address <span>*</span></label>
                                                                 <input type="email" name="email_id" className="form-control" value={editProfile.email_id} onChange={handleChange} required />
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-4">
+                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Residential Address <span>*</span></label>
                                                                 <input type="text" name="residential_address" className="form-control" value={editProfile.residential_address} onChange={handleChange} required />
                                                             </div>
                                                         </div>
-                                                        <div className="col-lg-8">
+                                                        <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Nationality <span>*</span></label>
                                                                 <input type="text" name="nationality" className="form-control" value={editProfile.nationality} onChange={handleChange} required />
@@ -240,19 +269,137 @@ const Index = () => {
                                                         <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Voter Identification Number (VIN)<span>*</span></label>
-                                                                <input type="text" name="vin" className="form-control" value={editProfile.vin} onChange={handleVinChange} pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}" required />
+                                                                <input type="text" name="vin" className="form-control" value={editProfile.vin} onChange={handleVinChange} pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{3}" required />
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Polling Unit Code <span>*</span></label>
-                                                                <input type="text" name="pu_code" className="form-control" value={editProfile.pu_code} onChange={handleChange} required />
+                                                                <input type="text" name="pu_code" className="form-control" value={editProfile.pu_code} pattern="[A-Za-z0-9]{2}-[A-Za-z0-9]{2}-[A-Za-z0-9]{2}-[A-Za-z0-9]{3}" onChange={handleCodeChange} required />
                                                             </div>
                                                         </div>
                                                         <div className="col-lg-6">
                                                             <div className="form-group">
                                                                 <label>Occupation/Employment Status</label>
-                                                                <input type="text" name="employment" className="form-control" value={editProfile.employment} />
+                                                                <input type="text" name="employment" className="form-control" value={editProfile.employment} onChange={handleChange} />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="">Date of Registration</label>
+                                                                <input type="date" name="registration_date" class="form-control" value={editProfile.registration_date} onChange={handleChange} readOnly />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="form-group">
+                                                                <label for="">Political Party Affiliation: (Election official)</label>
+                                                                <select type="text" name="political_party" class="form-control" value={editProfile.political_party} onChange={handleChange} required>
+                                                                    <option value="">Select Political Party</option>
+                                                                    {editProfile?.allparty?.map((party, i) => (
+                                                                        <option key={i} value={party.id}>
+                                                                            {party.party_name}
+                                                                        </option>
+                                                                    ))}
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12 text-end">
+                                                            <button type="submit" className="btn-event">
+                                                                Update
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0" >
+                                        <div class="campaign-sec">
+                                            <div className="event-form">
+                                                <form onSubmit={handleUpdate}>
+                                                    <div className="row">
+                                                        <div className="col-lg-12">
+                                                            <div className="file-form">
+                                                                {/* <label className="form__container" id="upload-container">Choose or Drag & Drop File</label> */}
+                                                                <input name="profile_photo" id="upload-files" type="file" accept="image/*" multiple="multiple" onChange={handleChange} />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-4">
+                                                            <div className="form-group">
+                                                                <label>First Name <span>*</span></label>
+                                                                <input type="text" name="first_name" className="form-control" value={editProfile.first_name} onChange={handleChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-4">
+                                                            <div className="form-group">
+                                                                <label>Last Name <span>*</span></label>
+                                                                <input type="text" name="last_name" className="form-control" value={editProfile.last_name} onChange={handleChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-4">
+                                                            <div className="form-group">
+                                                                <label>Gender <span>*</span></label>
+                                                                <div className="form-group-flex">
+                                                                    <div className="form-group">
+                                                                        <input type="radio" id="male" name="gender" value="male" checked={editProfile.gender === "male"} onChange={handleChange} required />
+                                                                        <label htmlFor="male">MALE</label>
+                                                                
+                                                                        <input type="radio" id="female" name="gender" value="female" checked={editProfile.gender === "female"} onChange={handleChange} required />
+                                                                        <label htmlFor="female">FEMALE</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {/* <div className="col-lg-4">
+                                                            <div className="form-group">
+                                                                <label>DOB <span>*</span></label>
+                                                                <div className="input-icon-ab">
+                                                                    <input type="date" name="dob" className="form-control" value={editProfile.dob} onChange={handleChange} required />
+                                                                </div>
+                                                            </div>
+                                                        </div> */}
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Phone Number <span>*</span></label>
+                                                                <div className="input-icon-ab">
+                                                                    <input type="number" name="telephone" className="form-control" value={editProfile.telephone} onChange={handleChange} required />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Email Address <span>*</span></label>
+                                                                <input type="email" name="email_id" className="form-control" value={editProfile.email_id} onChange={handleChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Residential Address <span>*</span></label>
+                                                                <input type="text" name="residential_address" className="form-control" value={editProfile.residential_address} onChange={handleChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Nationality <span>*</span></label>
+                                                                <input type="text" name="nationality" className="form-control" value={editProfile.nationality} onChange={handleChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Voter Identification Number (VIN)<span>*</span></label>
+                                                                <input type="text" name="vin" className="form-control" value={editProfile.vin} onChange={handleVinChange} pattern="[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{3}" required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Polling Unit Code <span>*</span></label>
+                                                                <input type="text" name="pu_code" className="form-control" value={editProfile.pu_code} pattern="[A-Za-z0-9]{2}-[A-Za-z0-9]{2}-[A-Za-z0-9]{2}-[A-Za-z0-9]{3}" onChange={handleCodeChange} required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-lg-6">
+                                                            <div className="form-group">
+                                                                <label>Occupation/Employment Status</label>
+                                                                <input type="text" name="employment" className="form-control" value={editProfile.employment} onChange={handleChange} />
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">

@@ -72,8 +72,8 @@ const DashboardLeftbar = () => {
                 <Sidebar>
                     <Menu>
                         <MenuItem icon={<i className="fa fa-fw fa-dashboard"></i>} className={router.pathname === '/dashboard' ? 'active' : ''}><Link href="/dashboard">Dashboard</Link></MenuItem>
-                        <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>} className={router.pathname === '/dashboard/analysis' ? 'active' : ''}><Link href="/dashboard/analysis">Senate Analysis</Link></MenuItem>
-                        <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem>
+                        <MenuItem icon={<i className="fa-solid fa-chart-pie"></i>} className={router.pathname === '/dashboard/analysis' ? 'active' : ''}><Link href="/dashboard/analysis">Analytics</Link></MenuItem>
+                        {/* <MenuItem icon={<i className="fa-solid fa-building"></i>} className={router.pathname === '/dashboard/plan' ? 'active' : ''}><Link href="/dashboard/plan">Plan</Link></MenuItem> */}
                         <SubMenu label={<span><i className="fa-solid fa-chart-simple"></i> Feedback </span>}>
                             {renderMenuItem("/dashboard/feedback/feedbackanswer", "Give Feedback", null)}
                             {renderMenuItem("/dashboard/feedback", "Feedback List", null)}
@@ -89,18 +89,18 @@ const DashboardLeftbar = () => {
                                 {renderMenuItem("/dashboard/surveylist/addsurvey", "New Surveys", null)}
                                 {/* {renderMenuItem("/dashboard/feedback-list", "Surveys Response", null)} */}
                             </SubMenu>
-                            <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Team Management </span>}>
+                            {/* <SubMenu label={<span><i className="fa-solid fa-balance-scale"></i> Team Management </span>}>
                                 {renderMenuItem("/dashboard/team", "Teams", null)}
                                 {renderMenuItem("/dashboard/team/newteam", "New Teams", null)}
                                 {renderMenuItem("/dashboard/member", "Member List", null)}
-                            </SubMenu>
+                            </SubMenu> */}
                         </SubMenu>
                         <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Engagement </span>}>
-                            <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Social Media </span>}>
+                            {/* <SubMenu label={<span><i className="fa-solid fa-handshake"></i> Social Media </span>}>
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Facebook</MenuItem>
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Twitter</MenuItem>
                                 <MenuItem icon={<i className="fa-solid fa-envelope"></i>}>Whatsapp</MenuItem>
-                            </SubMenu>
+                            </SubMenu> */}
                             {/* {renderMenuItem("/dashboard/bulkemail", "Email & Messaging", null)} */}
                             {renderMenuItem("/dashboard/pollingagent", "Polling Agents", null)}
                             {renderMenuItem("/dashboard/election_campaign", "Election Campaign", null)}

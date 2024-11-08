@@ -8,6 +8,7 @@ const Index = () => {
     const [alllists, setList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);  // Track the current page
     const [totalPages, setTotalPages] = useState(1);    // Track total pages
+    const [inputPage, setInputPage] = useState("");
 
     useEffect(() => {
         fetchData(currentPage);
@@ -41,6 +42,71 @@ const Index = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
+    };
+
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+    };
+
+    const handleInputChange = (e) => {
+        setInputPage(e.target.value);
+    };
+
+    const handleGoToPage = () => {
+        const pageNumber = parseInt(inputPage, 10);
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+            setInputPage(""); // Clear input field after navigation
+        } else {
+            toast.error(`Please enter a valid page number between 1 and ${totalPages}`);
+        }
+    };
+
+    const renderPageNumbers = () => {
+        const pageNumbers = [];
+        const maxButtons = 8;
+        const halfMax = Math.floor(maxButtons / 2);
+
+        let startPage = Math.max(1, currentPage - halfMax);
+        let endPage = Math.min(totalPages, currentPage + halfMax);
+
+        if (currentPage <= halfMax) {
+            endPage = Math.min(totalPages, maxButtons);
+        } else if (currentPage + halfMax >= totalPages) {
+            startPage = Math.max(1, totalPages - maxButtons + 1);
+        }
+
+        if (startPage > 1) {
+            pageNumbers.push(
+                <button key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1} className={currentPage === 1 ? "active" : ""}>
+                    1
+                </button>
+            );
+            if (startPage > 2) {
+                pageNumbers.push(<span key="start-ellipsis">...</span>);
+            }
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pageNumbers.push(
+                <button key={i} onClick={() => handlePageClick(i)} disabled={i === currentPage} className={i === currentPage ? "active" : ""}>
+                    {i}
+                </button>
+            );
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                pageNumbers.push(<span key="end-ellipsis">...</span>);
+            }
+            pageNumbers.push(
+                <button key={totalPages} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages} className={currentPage === totalPages ? "active" : ""}>
+                    {totalPages}
+                </button>
+            );
+        }
+
+        return pageNumbers;
     };
 
     return (
@@ -87,10 +153,12 @@ const Index = () => {
                         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
                             Previous
                         </button>
-                        <span>Page {currentPage} of {totalPages}</span>
+                        {renderPageNumbers()}
                         <button onClick={handleNextPage} disabled={currentPage === totalPages}>
                             Next
                         </button>
+                        <input type="number" value={inputPage} onChange={handleInputChange} placeholder="Enter page number" />
+                        <button onClick={handleGoToPage}>Go</button>
                     </div>
                 </div>
             </div>
