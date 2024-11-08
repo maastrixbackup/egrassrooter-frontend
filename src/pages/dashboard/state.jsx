@@ -43,6 +43,27 @@ const Index = () => {
         }
     };
 
+    const handlePageClick = (page) => {
+        setCurrentPage(page);
+    };
+
+    const renderPageNumbers = () => {
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageNumbers.push(
+                <button
+                    key={i}
+                    onClick={() => handlePageClick(i)}
+                    disabled={i === currentPage}
+                    className={i === currentPage ? "active" : ""}
+                >
+                    {i}
+                </button>
+            );
+        }
+        return pageNumbers;
+    };
+
     return (
         <div className="sidebar_sec_rgt">
             <nav aria-label="breadcrumb" className="d-flex align-items-start">
@@ -83,7 +104,7 @@ const Index = () => {
                         <button onClick={handlePreviousPage} disabled={currentPage === 1}>
                             Previous
                         </button>
-                        <span>Page {currentPage} of {totalPages}</span>
+                        {renderPageNumbers()}
                         <button onClick={handleNextPage} disabled={currentPage === totalPages}>
                             Next
                         </button>

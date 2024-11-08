@@ -23,7 +23,7 @@ const PollingUnitPage = () => {
 
         if (tokenData) {
             try {
-                const response = await PostData( "dashboard/get-political-zones",  formData,  "", `Bearer ${tokenData}` );
+                const response = await PostData("dashboard/get-political-zones", formData, "", `Bearer ${tokenData}`);
                 setList(response.pollingUnits.data);
                 setTotalPages(response.pollingUnits.last_page);
             } catch (error) {
@@ -117,13 +117,13 @@ const PollingUnitPage = () => {
                         <Link href="/dashboard">Dashboard</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                        Polling Unit
+                        Registered Voters
                     </li>
                 </ol>
             </nav>
             <div className="table-bx-main">
                 <div className="table-title">
-                    <h4>Polling Unit List</h4>
+                    <h4>Registered Voters List</h4>
                     <Link href="/dashboard" className="btn-back">
                         <i className="fal fa-angle-double-left" />
                     </Link>
@@ -133,20 +133,16 @@ const PollingUnitPage = () => {
                         <thead>
                             <tr>
                                 <th>Sl No#</th>
-                                <th>State Name</th>
-                                <th>LGAs Name</th>
-                                <th>Ward Name</th>
                                 <th>Polling Unit Name</th>
+                                <th>Registered Voters Number</th>
                             </tr>
                         </thead>
                         <tbody>
                             {alllists?.map((all, index) => (
                                 <tr key={index}>
                                     <td>{(currentPage - 1) * 20 + index + 1}</td>
-                                    <td>{all.statename}</td>
-                                    <td>{all.lga}</td>
-                                    <td>{all.wardname}</td>
                                     <td>{all.pollingname}</td>
+                                    <td>{all.polling_capacity}</td>
                                 </tr>
                             ))}
                         </tbody>

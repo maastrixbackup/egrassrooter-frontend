@@ -48,10 +48,10 @@ const DashBoardTopBar = ({ data }) => {
   const upcomingElection = data;
   const electionDetails = upcomingElection && upcomingElection.election_type
     ? `${upcomingElection.states} State ${upcomingElection.election_type} on ${new Date(upcomingElection.date).toLocaleDateString("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-      })}`
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })}`
     : "No upcoming elections";
 
   return (
@@ -66,15 +66,17 @@ const DashBoardTopBar = ({ data }) => {
             </div>
           </div>
           <div className="col-lg-6 col-md-6 text-center">
-              {/* <span><h3>Next Election: {electionDetails} </h3></span> */}
+            {/* <span><h3>Next Election: {electionDetails} </h3></span> */}
           </div>
           <div className="col-lg-3 col-md-3">
-            <div className="topbar_sec_rgt">
+            <Link href="/dashboard/profile">
+              <div className="topbar_sec_rgt">
                 <div className="topbar_sec_rgt_fig">
                   <Image src={profile.profile_photo || "/images/logo-pic.jpg"} alt="Candidate" width={500} height={500} />
                 </div>
-              <h3>{profile.profile_name || "Kesiena Manager"}</h3>
-            </div>
+                <h3>{profile.profile_name || "Kesiena Manager"}</h3>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

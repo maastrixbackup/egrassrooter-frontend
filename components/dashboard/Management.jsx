@@ -108,17 +108,19 @@ const Management = ({ dashboard }) => {
             </div>
             )}
             <div className="col-lg-4 col-md-4">
-                <div className="sidebar_sec_rgt_box bg_drkgrbn">
-                    <div className="abstlu_dv">
-                        <div className="sidebar_sec_rgt_box_fig">
-                            <img src="/images/voters.png" alt="" />
+                <Link href="/dashboard/voters">
+                    <div className="sidebar_sec_rgt_box bg_drkgrbn">
+                        <div className="abstlu_dv">
+                            <div className="sidebar_sec_rgt_box_fig">
+                                <img src="/images/voters.png" alt="" />
+                            </div>
+                        </div>
+                        <div className="sidebar_sec_rgt_box_cnt">
+                            <h3>Total Registered Voters</h3>
+                            <p>{dashboard?.campaign_data?.polling_capacity || "N/A"}</p>
                         </div>
                     </div>
-                    <div className="sidebar_sec_rgt_box_cnt">
-                        <h3>Total Registered Voters</h3>
-                        <p>{dashboard?.projected_voter_turnoutcount || "N/A"}</p>
-                    </div>
-                </div>
+                </Link>
             </div>
             <div className="col-lg-4 col-md-4 ">
                 <div className="sidebar_sec_rgt_box">
